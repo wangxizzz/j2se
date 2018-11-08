@@ -6,6 +6,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Demo01 {
@@ -96,5 +97,17 @@ public class Demo01 {
         Integer A = a;
         Integer B = 127;
         System.out.println(A == B);
+    }
+
+    /**
+     * 随机数的生成 Random
+     * 若非必要，不要设置随机种子，会导致多次产生的随机数相同。
+     */
+    @Test
+    public void test07() {
+        Random r = new Random();   // JDK带的有随机种子
+        for (int i = 0; i < 2; i++) {
+            System.out.println(r.nextInt());
+        }
     }
 }

@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 
 public class 排序 {
     /**
-     * 对list集合自定义排序 采用Integer.compare()
+     * 对list集合自定义排序 采用Integer.compare()，可以有效地防止溢出
      */
     @Test
     public void testListSort() {
