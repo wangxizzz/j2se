@@ -29,6 +29,12 @@ public enum Season {
             // 得到每个枚举的编号
             System.out.println(s.ordinal());
         }
+        // 枚举的强转
+        try {
+            Season s1 = Season.valueOf("Name");  // 注意，valueOf()是JVM内置方法。
+        } catch (Exception e) {
+            System.err.println("不能强转");
+        }
     }
     // 枚举中自定义方法
     public static Season getComfortableSeason() {
