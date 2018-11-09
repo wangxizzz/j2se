@@ -1,4 +1,4 @@
-package Java151条建议.java多继承;
+package Java151条建议.java多继承的实现;
 // 母亲
 public interface Mother {
     /**

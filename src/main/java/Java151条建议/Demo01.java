@@ -4,10 +4,7 @@ import org.junit.Test;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Demo01 {
     /**
@@ -109,5 +106,58 @@ public class Demo01 {
         for (int i = 0; i < 2; i++) {
             System.out.println(r.nextInt());
         }
+    }
+
+    /**
+     * 替换字符串使用replace(),默认会替换所有匹配的字符。此方法在jdk1.5后支持
+     * 注意：不要去使用replaceAll(),此方法第一个参数是匹配正则表达式的。
+     */
+    @Test
+    public void test08() {
+        String s = "你好好";
+        System.out.println(s.replace("好", ""));
+    }
+
+    /**
+     * 最大值的求法
+     */
+    @Test
+    public void test09() {
+        List<Integer> list = new ArrayList<>(2);
+        // 采用直接遍历的方法
+        int max = list.get(0);
+        for (int i : list) {
+            max = Math.max(max, i);
+        }
+        // 还可以采用TreeSet去重后排序，适用于在重复元素的集合中找出第二大的元素,TreeSet默认是按key排序的。
+    }
+
+    /**
+     * list的遍历方式的选择
+     */
+    @Test
+    public void test10() {
+        // 下面列出来的是性能最好的遍历方式
+        List<Integer> list = null;
+        if (list instanceof RandomAccess) {
+            // 表示实现了随机读取的接口,比如ArrayList，则应该采用下标遍历。
+            for (int i = 0, size = list.size(); i < size; i++) {  // 把计算list的size放到初始化处，避免重复计算
+                // TODO
+            }
+        } else {    // 如果是LinkedList这些类型,采用迭代器模式
+            for (int i : list) {
+                // TODO
+            }
+        }
+    }
+
+    /**
+     * 快速创建list集合,asList()创建的list是不能改变的
+     */
+    @Test
+    public void test11() {
+        List<Integer> list = Arrays.asList(1,2,3,4);
+        list.add(3);   // 这一行会报错
+        System.out.println(list);
     }
 }
