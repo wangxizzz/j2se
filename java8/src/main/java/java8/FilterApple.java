@@ -9,8 +9,8 @@ import java.util.List;
  */
 public class FilterApple {
 
-
-    @FunctionalInterface
+    // 申明一个接口，采用策略模式，应对各种苹果过滤的需求
+    @FunctionalInterface  // 函数式接口
     public interface AppleFilter {
 
         boolean filter(Apple apple);
@@ -55,7 +55,7 @@ public class FilterApple {
 
         return list;
     }
-
+    // 根据苹果颜色找到对应的苹果
     public static List<Apple> findApple(List<Apple> apples, String color) {
         List<Apple> list = new ArrayList<>();
 
@@ -78,10 +78,12 @@ public class FilterApple {
 
         List<Apple> redApples = findApple(list, "red");
         System.out.println(redApples);*/
-/*
+
+/*      // 采用实现类实现接口，并且实现接口的方法的方式实现苹果的过滤
         List<Apple> result = findApple(list, new GreenAnd160WeightFilter());
         System.out.println(result);
 
+        // 采用匿名类部类方式 实现苹果的过滤
         List<Apple> yellowList = findApple(list, new AppleFilter() {
             @Override
             public boolean filter(Apple apple) {
@@ -91,6 +93,7 @@ public class FilterApple {
 
         System.out.println(yellowList);*/
 
+        // 参数apple可以根据接口中定义的类型来推导，返回值也可以根据接口方法推导，而返回boolean
         List<Apple> lambdaResult = findApple(list, apple -> apple.getColor().equals("green"));
 
         System.out.println(lambdaResult);
@@ -106,8 +109,8 @@ public class FilterApple {
 
         new Thread(() -> System.out.println(Thread.currentThread().getName())).start();
 
-
-        Thread.currentThread().join();
+        Thread.currentThread().join();  // 或者可以让主线程睡眠几s
+        System.out.println("===============");
     }
 
 

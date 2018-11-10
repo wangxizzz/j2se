@@ -7,7 +7,7 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.stream.Collectors;
 
-import static com.wangwenjun.java8.CollectorsAction.menu;
+import static java8.CollectorsAction.menu;
 
 /***************************************
  * @author:Alex Wang
