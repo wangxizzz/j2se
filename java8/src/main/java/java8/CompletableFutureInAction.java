@@ -56,7 +56,7 @@ public class CompletableFutureInAction {
                 }))
                 .collect(toList());
 
-        List<Double> collect = futures.stream().parallel().map(f -> f.join()).collect(toList());
+        List<Double> collect = futures.stream().parallel().map(f -> f.join用法测试()).collect(toList());
         System.out.println(collect);
         System.out.println(start-System.currentTimeMillis());*/
 

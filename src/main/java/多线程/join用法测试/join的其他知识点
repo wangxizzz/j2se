@@ -1,0 +1,5 @@
+join(long) :设定等待的时间。
+
+方法join(long)与 sleep(long) 的区别
+1、方法join(long)的功能在内部是使用wait(long)方法来实现的，所以join(long)方法具有释放锁的特点。
+2、sleep(long)方法却不释放锁。
