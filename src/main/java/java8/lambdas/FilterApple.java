@@ -1,4 +1,4 @@
-package java8;
+package java8.lambdas;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -83,7 +83,7 @@ public class FilterApple {
         List<Apple> result = findApple(list, new GreenAnd160WeightFilter());
         System.out.println(result);
 
-        // 采用匿名类部类方式 实现苹果的过滤
+        // 采用匿名类部类方式,注意new的是一个接口，里面实现了接口中的方法 实现苹果的过滤
         List<Apple> yellowList = findApple(list, new AppleFilter() {
             @Override
             public boolean filter(Apple apple) {

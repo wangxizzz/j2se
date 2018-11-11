@@ -17,7 +17,10 @@ public class 排序 {
         for (int i = 8; i > 0; i--) {
             list.add(i);
         }
-        Collections.sort(list, new Comparator<Integer>() {
+
+        list.sort((Integer o1, Integer o2) -> Integer.compare(o1, o2));
+        System.out.println(list);
+        list.sort(new Comparator<Integer>() {
             @Override
             public int compare(Integer o1, Integer o2) {
                 return Integer.compare(o1, o2);

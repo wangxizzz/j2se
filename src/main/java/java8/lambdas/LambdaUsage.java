@@ -1,6 +1,5 @@
-package java8;
+package java8.lambdas;
 
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -31,7 +30,7 @@ public class LambdaUsage {
         }
         return result;
     }
-
+    // 两个参数BiPredicate BinaryPredicate
     private static List<Apple> filterByBiPredicate(List<Apple> source, BiPredicate<String, Long> predicate) {
         List<Apple> result = new ArrayList<>();
         for (Apple a : source) {
@@ -57,6 +56,7 @@ public class LambdaUsage {
         return fun.apply(apple);
     }
 
+    // 传入两个参数，返回一个Apple
     private static Apple testBiFunction(String color, long weight, BiFunction<String, Long, Apple> fun) {
         return fun.apply(color, weight);
     }
@@ -109,6 +109,7 @@ public class LambdaUsage {
         Apple a = testBiFunction("Blue", 130, (s, w) -> new Apple(s, w));
         System.out.println(a);
 
+        //Supplier 提供，供给
         Supplier<String> s = String::new;   //method inference.
         System.out.println(s.get().getClass());
 

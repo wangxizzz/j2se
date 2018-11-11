@@ -1,4 +1,4 @@
-package java8;
+package java8.lambdas;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -18,6 +18,7 @@ public class MethodReference {
         /*Consumer<String> consumer = (s) -> System.out.println(s);
         useConsumer(consumer, "Hello Alex");*/
 
+        // 第一个参数是传入一个Consumer<String>
         useConsumer(s -> System.out.println(s), "Hello Alex");
 
         useConsumer(System.out::println, "Hello Wangwenjun");
@@ -33,6 +34,7 @@ public class MethodReference {
         list.stream().forEach(a -> System.out.println(a));
 
         System.out.println("==========================");
+        // 函数推导方式
         list.stream().forEach(System.out::println);
 
         int value = Integer.parseInt("123");
@@ -42,7 +44,7 @@ public class MethodReference {
         Integer result = f.apply("123");
         System.out.println(result);
 
-
+        // 传入String,Integer(下标index)两个参数，返回具体下标的字符。
         BiFunction<String, Integer, Character> f2 = String::charAt;
         Character c = f2.apply("hello", 2);
         System.out.println(c);

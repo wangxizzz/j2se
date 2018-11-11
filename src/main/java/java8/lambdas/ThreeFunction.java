@@ -1,4 +1,4 @@
-package java8;
+package java8.lambdas;
 
 /**
  * Created by wangwenjun on 2016/10/16.
