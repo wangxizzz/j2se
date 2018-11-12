@@ -17,7 +17,11 @@ public class 排序 {
         for (int i = 8; i > 0; i--) {
             list.add(i);
         }
-
+        // 获得list里面的值.
+        list.sort(Comparator.comparing(Integer::intValue));
+        // 获得list里面的值
+        list.sort(Integer::compare);
+        System.out.println(list);
         list.sort((Integer o1, Integer o2) -> Integer.compare(o1, o2));
         System.out.println(list);
         list.sort(new Comparator<Integer>() {
