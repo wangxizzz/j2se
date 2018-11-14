@@ -15,6 +15,7 @@ public class NullPointerException {
 
     }
 
+    // 通过判断避免NullPointerException
 /*    private static String getInsuranceNameByDeepDoubts(Person person)
     {
         if (null != person) {
@@ -47,6 +48,7 @@ public class NullPointerException {
         return insurance.getName();
     }
 
+    // 会出现NullPointerException
     private static String getInsuranceName(Person person) {
         return person.getCar().getInsurance().getName();
     }*/

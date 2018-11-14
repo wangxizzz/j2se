@@ -13,7 +13,7 @@ public class OptionalUsage {
         // 会出现NoSuchElementException
         insuranceOptional.get();
 
-        // 通过of构造出构造Optional
+        // 通过of构造出构造Optional，参数必须为非null
         Optional<Insurance> insuranceOptional1 = Optional.of(new Insurance());
         // 返回Insurance实例
         insuranceOptional1.get();
@@ -24,23 +24,26 @@ public class OptionalUsage {
         // 如果不为空就返回实例，如果为null就会执行括号里的代码Insurance::new,里面需要传入一个Supplier接口
         objectOptional.orElseGet(Insurance::new);
 
-        // 参数是一个reference，不是Supplier
+        // 参数是一个reference，可以传一个对象或String.不是Supplier
         objectOptional.orElse(new Insurance());
 
         objectOptional.orElseThrow(RuntimeException::new);
 
         objectOptional.orElseThrow(() -> new RuntimeException("Not have reference"));
 
-        // 把getName != null的过滤出来送入下一个流中
+        // 把getName != null的过滤出来送入下一个流中。注意：此时getName是为空的，因为没有赋值。
         Insurance insurance = insuranceOptional1.filter(i -> i.getName() != null).get();
         System.out.println(insurance);
 
         Optional<String> nameOptional = insuranceOptional1.map(i -> i.getName());
 
+        // 如果nameOptional为null,不会抛出异常，会输出括号里的内容。
         System.out.println(nameOptional.orElse("empty Value"));
 
+        // 测试容器里面的值存不存在。
         System.out.println(nameOptional.isPresent());
 
+        // 如果nameOptional存在就会执行Consumer接口
         nameOptional.ifPresent(System.out::println);
 
 

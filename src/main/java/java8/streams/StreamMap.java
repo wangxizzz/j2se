@@ -33,9 +33,18 @@ public class StreamMap {
 
         //H,e,l,l,o,W,o,r,l,d
         Stream<String> stringStream = stream.flatMap(Arrays::stream);
-
         stringStream.distinct().forEach(System.out::println);
 
+        /**
+         * 上述式子的综合写法
+         */
+        Arrays.stream(words)
+                // 把每个单词分割为一个个字符数组
+                .map(w -> w.split(""))
+                // 把每个字符数组的流合成一个流
+                .flatMap((String[] nums) -> Arrays.stream(nums))
+                .distinct()
+                .forEach(w -> System.out.println(w));
     }
 
 
