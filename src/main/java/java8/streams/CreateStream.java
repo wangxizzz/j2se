@@ -1,4 +1,4 @@
-package java8;
+package java8.streams;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -11,7 +11,7 @@ import java.util.function.Supplier;
 import java.util.stream.Stream;
 
 /**
- * Created by wangwenjun on 2016/10/19.
+ * stream创建的几种方式
  */
 public class CreateStream {
 
@@ -31,7 +31,7 @@ public class CreateStream {
 
 
     /**
-     * Generate the stream object from collection.
+     * 从元素集合中创建一个stream
      *
      * @return
      */

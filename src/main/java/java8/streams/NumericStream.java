@@ -1,4 +1,4 @@
-package java8;
+package java8.streams;
 
 import java.util.stream.IntStream;
 
@@ -12,6 +12,7 @@ public class NumericStream {
 
         IntStream intStream = stream.mapToInt(i -> i.intValue());
 
+        // int比Integer占用的内存小很多
         int result = intStream.filter(i -> i > 3).sum();
 
         System.out.println(result);*/
@@ -22,8 +23,10 @@ public class NumericStream {
         //1..1000
         //result int[a,b,c];
 
+        // 从1-100的数字之间过滤出符合的数字。
         IntStream.rangeClosed(1, 100)
                 .filter(b -> Math.sqrt(a * a + b * b) % 1 == 0)
+                // 需要转换成数组，需要装箱
                 .boxed()
                 .map(b -> new int[]{a, b, (int) Math.sqrt(a * a + b * b)})
                 .forEach(r -> System.out.println("a=" + r[0] + ",b=" + r[1] + ",c=" + r[2]));

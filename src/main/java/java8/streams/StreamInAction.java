@@ -1,4 +1,4 @@
-package java8;
+package java8.streams;
 
 import java.util.Arrays;
 import java.util.Comparator;
@@ -8,7 +8,7 @@ import java.util.Optional;
 import static java.util.stream.Collectors.toList;
 
 /**
- * Created by wangwenjun on 2016/10/22.
+ * stream的一个实际的例子。一个简单的小项目。
  */
 public class StreamInAction {
     public static void main(String[] args) {

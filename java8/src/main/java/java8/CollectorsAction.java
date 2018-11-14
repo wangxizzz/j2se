@@ -3,11 +3,6 @@ package java8;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/10/27 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
 public class CollectorsAction {
 
 

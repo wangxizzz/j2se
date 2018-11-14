@@ -5,11 +5,6 @@ import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.groupingBy;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/10/25 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
 public class CollectorIntroduce {
 
     public static void main(String[] args) {

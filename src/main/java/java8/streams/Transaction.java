@@ -1,4 +1,4 @@
-package java8;
+package java8.streams;
 
 /**
  * Created by wangwenjun on 2016/10/22.

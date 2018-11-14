@@ -156,8 +156,9 @@ public class Demo01 {
      */
     @Test
     public void test11() {
-        List<Integer> list = Arrays.asList(1,2,3,4);
-        list.add(3);   // 这一行会报错
+        List<Integer> list = Arrays.asList(10,2,3,4);
+        list.sort((o1, o2) -> Integer.compare(o2, o1));  // 可以对list排序。
+//        list.add(3);   // 这一行会报错
         System.out.println(list);
     }
 }

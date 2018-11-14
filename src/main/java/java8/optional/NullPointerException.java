@@ -1,10 +1,8 @@
-package java8;
+package java8.optional;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/10/24 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
+/**
+ * 空指针异常演示
+ */
 public class NullPointerException {
 
 

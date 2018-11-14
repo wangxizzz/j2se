@@ -11,7 +11,7 @@ import static java.util.stream.Collectors.toCollection;
 import static java.util.stream.Collectors.toList;
 
 /**
- * Created by wangwenjun on 2016/10/18.
+ * 简单对stream处理的例子
  */
 public class SimpleStream {
     public static void main(String[] args) {
@@ -34,10 +34,11 @@ public class SimpleStream {
 
         Stream<Dish> dishStream = Stream.of(new Dish("prawns", false, 300, Dish.Type.FISH),
                 new Dish("salmon", false, 450, Dish.Type.FISH));
+        // 利用stream对menu进行输出
         dishStream.forEach(System.out::println);
 
-        System.out.println("=========================");
 
+        // 对menu采用stream处理
         List<String> result = menu.stream().filter(d -> {
 
             System.out.println("filtering->" + d.getName());
@@ -60,6 +61,11 @@ public class SimpleStream {
 
     }
 
+    /**
+     * 根据stream对menu进行排序，并且获取menu的名字列表返回
+     * @param menu
+     * @return
+     */
     private static List<String> getDishNamesByStream(List<Dish> menu) {
         return menu.parallelStream().filter(d -> {
                     try {
@@ -72,6 +78,11 @@ public class SimpleStream {
         ).sorted(comparing(Dish::getCalories)).map(Dish::getName).collect(toList());
     }
 
+    /**
+     * 根据集合对menu进行排序，并且获取menu的名字列表返回
+     * @param menu
+     * @return
+     */
     private static List<String> getDishNamesByCollections(List<Dish> menu) {
         List<Dish> lowCalories = new ArrayList<>();
 
