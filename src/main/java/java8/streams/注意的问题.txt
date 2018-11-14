@@ -1,0 +1,3 @@
+留意装箱。
+1.自动装箱和拆箱操作会大大降低性能。 Java 8中有原始类型流（ IntStream、
+LongStream、 DoubleStream）来避免这种操作，但凡有可能都应该用这些流。
