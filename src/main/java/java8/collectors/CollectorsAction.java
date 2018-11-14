@@ -1,12 +1,18 @@
-package java8;
+package java8.collectors;
+
+import java8.streams.Dish;
+import org.junit.Test;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+/**
+ * 测试collectors的普通api
+ */
 public class CollectorsAction {
 
 
-    public  static List<Dish> menu = Arrays.asList(
+    public final static List<Dish> menu = Arrays.asList(
             new Dish("pork", false, 800, Dish.Type.MEAT),
             new Dish("beef", false, 700, Dish.Type.MEAT),
             new Dish("chicken", false, 400, Dish.Type.MEAT),
@@ -17,26 +23,29 @@ public class CollectorsAction {
             new Dish("prawns", false, 300, Dish.Type.FISH),
             new Dish("salmon", false, 450, Dish.Type.FISH));
 
-    public static void main(String[] args) {
-        testAveragingDouble();
-        testAveragingInt();
-        testAveragingLong();
-        testCollectingAndThen();
-        testCounting();
-        testGroupingByFunction();
-        testGroupingByFunctionAndCollector();
-        testGroupingByFunctionAndSupplierAndCollector();
-        testSummarizingInt();
-    }
+//    public static void main(String[] args) {
+//        //testAveragingDouble();
+//        testAveragingInt();
+//        testAveragingLong();
+//        testCollectingAndThen();
+//        testCounting();
+//        testGroupingByFunction();
+//        testGroupingByFunctionAndCollector();
+//        testGroupingByFunctionAndSupplierAndCollector();
+//        testSummarizingInt();
+//    }
 
-    private static void testAveragingDouble() {
+    @Test
+    public void testAveragingDouble() {
         System.out.println("testAveragingDouble");
+        // 会发生隐式转换，把getCalories()返回的值转换成double
         Optional.ofNullable(menu.stream().collect(Collectors.averagingDouble(Dish::getCalories)))
                 .ifPresent(System.out::println);
     }
-
-    private static void testAveragingInt() {
+    @Test
+    public void testAveragingInt() {
         System.out.println("testAveragingInt");
+        // 把getCalories()返回的值转换成int
         Optional.ofNullable(menu.stream().collect(Collectors.averagingInt(Dish::getCalories)))
                 .ifPresent(System.out::println);
     }
@@ -54,6 +63,7 @@ public class CollectorsAction {
 /*
         List<Dish> list = menu.stream().filter(d -> d.getType().equals(Dish.Type.MEAT))
                 .collect(Collectors.collectingAndThen(Collectors.toList(), Collections::unmodifiableList));
+        // 在修改就会报错
         list.add(new Dish("", false, 100, Dish.Type.OTHER));
         System.out.println(list);*/
     }
@@ -71,11 +81,16 @@ public class CollectorsAction {
 
     private static void testGroupingByFunctionAndCollector() {
         System.out.println("testGroupingByFunctionAndCollector");
+        Map<Dish.Type, Double> collect = menu.stream().collect(Collectors.groupingBy(Dish::getType, Collectors.averagingInt(Dish::getCalories)));
+        // 输出map的类型。默认返回的是HashMap
+        System.out.println(collect.getClass());
         Optional.of(menu.stream().collect(Collectors.groupingBy(Dish::getType, Collectors.averagingInt(Dish::getCalories))))
                 .ifPresent(System.out::println);
     }
 
-    private static void testGroupingByFunctionAndSupplierAndCollector() {
+    // 自定义返回TreeMap
+    @Test
+    public void testGroupingByFunctionAndSupplierAndCollector() {
         System.out.println("testGroupingByFunctionAndSupplierAndCollector");
         Map<Dish.Type, Double> map = menu.stream().collect(Collectors.groupingBy(Dish::getType, TreeMap::new, Collectors.averagingInt(Dish::getCalories)));
 

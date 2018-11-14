@@ -1,4 +1,6 @@
-package java8;
+package java8.collectors;
+
+import java8.lambdas.Apple;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,7 +18,8 @@ public class CollectorIntroduce {
                 , new Apple("green", 170));
 
         List<Apple> greenList = list.stream().filter(a -> a.getColor().equals("green")).collect(Collectors.toList());
-        Optional.ofNullable(greenList).ifPresent(System.out::println);
+        // 利用Optional.ofNullable不再需要使用空指针的判断了
+        Optional.ofNullable(greenList).ifPresent(l -> System.out.println(l));
         Optional.ofNullable(groupByNormal(list)).ifPresent(System.out::println);
         System.out.println("===================================================");
         Optional.ofNullable(groupByFunction(list)).ifPresent(System.out::println);
@@ -24,6 +27,11 @@ public class CollectorIntroduce {
         Optional.ofNullable(groupByCollector(list)).ifPresent(System.out::println);
     }
 
+    /**
+     * 通过苹果颜色对苹果分类
+     * @param apples
+     * @return
+     */
     private static Map<String, List<Apple>> groupByNormal(List<Apple> apples) {
         Map<String, List<Apple>> map = new HashMap<>();
         for (Apple a : apples) {
@@ -51,6 +59,6 @@ public class CollectorIntroduce {
     }
 
     private static Map<String, List<Apple>> groupByCollector(List<Apple> apples) {
-        return apples.parallelStream().collect(groupingBy(Apple::getColor));
+        return apples.parallelStream().collect(groupingBy(apple -> apple.getColor()));
     }
 }

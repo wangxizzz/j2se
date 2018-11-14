@@ -2,11 +2,6 @@ package java8;
 
 import java.util.concurrent.ForkJoinPool;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/11/2 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
 public class ForkJoinPoolTest {
 
     private static int[] data = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};

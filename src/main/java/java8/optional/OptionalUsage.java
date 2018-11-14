@@ -18,10 +18,10 @@ public class OptionalUsage {
         // 返回Insurance实例
         insuranceOptional1.get();
 
-        // 如果ofNullable参数为null,返回empty(),否则返回of()方法、
+        // ofNullable的应用场景是无法确定参数是否为null,但又不想判断是否为null。
         Optional<Insurance> objectOptional = Optional.ofNullable(null);
 
-        // 如果不为空就返回实例，如果为null就会执行括号里的代码Insurance::new,里面需要传入一个Supplier接口
+        // 如果不为空就返回实例，如果为null就会执行括号里的代码Insurance::new,里面需要传入一个Supplier函数式接口
         objectOptional.orElseGet(Insurance::new);
 
         // 参数是一个reference，可以传一个对象或String.不是Supplier

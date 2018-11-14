@@ -1,4 +1,6 @@
-package java8;
+package java8.collectors;
+
+import java8.streams.Dish;
 
 import java.util.Comparator;
 import java.util.List;
@@ -7,13 +9,11 @@ import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.stream.Collectors;
 
-import static java8.CollectorsAction.menu;
+import static java8.collectors.CollectorsAction.menu;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/10/28 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
+/**
+ * 测试分组的api
+ */
 public class CollectorsAction2 {
 
     public static void main(String[] args) {
@@ -32,6 +32,7 @@ public class CollectorsAction2 {
         System.out.println("testGroupingByConcurrentWithFunction");
 
         ConcurrentMap<Dish.Type, List<Dish>> collect = menu.stream().collect(Collectors.groupingByConcurrent(Dish::getType));
+        // 默认返回ConcurrentHashMap
         Optional.ofNullable(collect.getClass()).ifPresent(System.out::println);
         Optional.ofNullable(collect).ifPresent(System.out::println);
     }
@@ -60,6 +61,7 @@ public class CollectorsAction2 {
 
     private static void testJoiningWithDelimiter() {
         System.out.println("testJoiningWithDelimiter");
+        // 用,连接
         Optional.of(menu.stream().map(Dish::getName).collect(Collectors.joining(",")))
                 .ifPresent(System.out::println);
     }

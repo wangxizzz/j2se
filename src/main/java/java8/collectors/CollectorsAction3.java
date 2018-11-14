@@ -1,10 +1,7 @@
-package java8;
+package java8.collectors;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/10/29 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
+
+import java8.streams.Dish;
 
 import java.util.Comparator;
 import java.util.List;
@@ -13,8 +10,11 @@ import java.util.Optional;
 import java.util.function.BinaryOperator;
 import java.util.stream.Collectors;
 
-import static java8.CollectorsAction.menu;
+import static java8.collectors.CollectorsAction.menu;
 
+/**
+ * 测试分区的api
+ */
 public class CollectorsAction3 {
 
     public static void main(String[] args) {

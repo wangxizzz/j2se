@@ -1,39 +1,38 @@
-package java8;
+package java8.collectors;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/10/29 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
+
+import java8.streams.Dish;
+import org.junit.Test;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentSkipListMap;
 import java.util.stream.Collectors;
 
-import static java8.CollectorsAction.menu;
+import static java8.collectors.CollectorsAction.menu;
 
 public class CollectorsAction4 {
 
-    public static void main(String[] args) {
-        testSummingDouble();
-        testSummingLong();
-        testSummingInt();
-        testToCollection();
-        testToConcurrentMap();
-        testToConcurrentMapWithBinaryOperator();
-        testToConcurrentMapWithBinaryOperatorAndSupplier();
+//    public static void main(String[] args) {
+//        testSummingDouble();
+//        testSummingLong();
+//        testSummingInt();
+//        testToCollection();
+//        testToConcurrentMap();
+//        testToConcurrentMapWithBinaryOperator();
+//        testToConcurrentMapWithBinaryOperatorAndSupplier();
+//
+//        testToList();
+//        testToSet();
+//
+//        testToMap();
+//        testToMapWithBinaryOperator();
+//        testToMapWithBinaryOperatorAndSupplier();
+//    }
 
-        testToList();
-        testToSet();
-
-        testToMap();
-        testToMapWithBinaryOperator();
-        testToMapWithBinaryOperatorAndSupplier();
-    }
-
-
-    private static void testSummingDouble() {
+    @Test
+    public void testSummingDouble() {
         System.out.println("testSummingDouble");
+        // 相加操作
         Optional.of(menu.stream().collect(Collectors.summingDouble(Dish::getCalories)))
                 .ifPresent(System.out::println);
 

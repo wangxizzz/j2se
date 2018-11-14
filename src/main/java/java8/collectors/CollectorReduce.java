@@ -1,15 +1,12 @@
-package java8;
+package java8.collectors;
+
+import java8.streams.Dish;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/10/27 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
 public class CollectorReduce {
     public static void main(String[] args) {
         List<Dish> menu = Arrays.asList(

@@ -22,7 +22,7 @@ public class OptionalInAction {
      */
     private static String getInsuranceNameByOptional(Person person) {
         /**
-         * map()返回一个新的Optional,而flatMap是把第二个参数的Optional返回。
+         * map()返回一个新的Optional,而flatMap是把第二个参数的Optional重用后返回。
          * 此时getCar()本身就返回一个Optional
          */
         return Optional.ofNullable(person)
