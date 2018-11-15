@@ -2,7 +2,6 @@ package java8.并行流;
 
 import org.junit.Test;
 
-import java.util.Optional;
 import java.util.stream.LongStream;
 
 public class Demo {
@@ -16,7 +15,8 @@ public class Demo {
 
         // 并行流导致线程不安全。有共享变量total。LongStream会产生原始的long数字，防止装箱拆箱，提高性能。
         LongStream.rangeClosed(1, n)
-                .parallel().forEach(x -> a.add(x));
+                .parallel()
+                .forEach(x -> a.add(x));
         System.out.println(a.total);
     }
 }
