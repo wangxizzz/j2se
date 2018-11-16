@@ -1,4 +1,4 @@
-package java8;
+package java8.并行流;
 
 import java.util.Objects;
 import java.util.Optional;
