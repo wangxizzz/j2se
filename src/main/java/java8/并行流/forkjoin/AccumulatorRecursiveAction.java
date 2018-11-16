@@ -1,13 +1,11 @@
-package java8;
+package java8.并行流.forkjoin;
 
 import java.util.concurrent.RecursiveAction;
 import java.util.concurrent.atomic.AtomicInteger;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/11/2 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
+/**
+ * 继承RecursiveAction没有返回值
+ */
 public class AccumulatorRecursiveAction extends RecursiveAction {
     private final int start;
 
@@ -34,6 +32,9 @@ public class AccumulatorRecursiveAction extends RecursiveAction {
             int mid = (start + end) / 2;
             AccumulatorRecursiveAction left = new AccumulatorRecursiveAction(start, mid, data);
             AccumulatorRecursiveAction right = new AccumulatorRecursiveAction(mid, end, data);
+            /**
+             * 继承RecursiveAction固定的任务执行代码。
+             */
             left.fork();
             right.fork();
             left.join();
@@ -41,14 +42,19 @@ public class AccumulatorRecursiveAction extends RecursiveAction {
         }
     }
 
+    /**
+     * 因为继承RecursiveAction没有返回值，得到返回值的类。
+     */
     static class AccumulatorHelper {
 
         private static final AtomicInteger result = new AtomicInteger(0);
 
+        // 相加
         static void accumulate(int value) {
             result.getAndAdd(value);
         }
 
+        // 返回相加后的结果
         public static int getResult() {
             return result.get();
         }
