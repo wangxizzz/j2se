@@ -1,17 +1,8 @@
-package java8;
+package java8.completableFuture;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
 
-import static java.util.stream.Collectors.toList;
-
-/***************************************
- * @author:Alex Wang
- * @Date:2016/11/8 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
 public class CompletableFutureInAction {
 
     private static final Random random = new Random(System.currentTimeMillis());

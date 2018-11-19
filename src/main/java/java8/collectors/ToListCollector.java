@@ -1,4 +1,4 @@
-package java8;
+package java8.collectors;
 
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -7,11 +7,10 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/10/30 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
+/**
+ * 自定义Collector
+ * @param <T>
+ */
 public class ToListCollector<T> implements Collector<T, List<T>, List<T>> {
 
     private void log(final String log) {

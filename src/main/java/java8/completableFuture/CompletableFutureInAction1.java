@@ -1,4 +1,4 @@
-package java8;
+package java8.completableFuture;
 
 import java.util.Optional;
 import java.util.Random;

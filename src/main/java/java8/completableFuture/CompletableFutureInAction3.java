@@ -1,12 +1,10 @@
-package java8;
+package java8.completableFuture;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 

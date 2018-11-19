@@ -1,4 +1,4 @@
-package java8;
+package java8.completableFuture;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;

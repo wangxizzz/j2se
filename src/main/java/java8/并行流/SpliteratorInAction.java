@@ -8,11 +8,9 @@ import java.util.stream.IntStream;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/11/3 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
+/**
+ * 自定义Spliterator
+ */
 public class SpliteratorInAction {
 
     private static String text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam in lacinia massa, quis eleifend dui. Sed in molestie ex. Curabitur id dui orci. Aenean pulvinar, tortor et egestas semper, mauris lectus malesuada ex, quis commodo urna nulla vitae eros. Cras scelerisque vel ligula at suscipit. Maecenas non ipsum quis est malesuada lobortis. Cras porta tortor elit, ut dictum ipsum pellentesque in. Mauris ut sollicitudin tellus.\n" +

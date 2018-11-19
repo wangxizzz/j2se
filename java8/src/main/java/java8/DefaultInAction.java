@@ -1,10 +1,8 @@
 package java8;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/11/5 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
+/**
+ * default关键字
+ */
 public class DefaultInAction {
 
 
