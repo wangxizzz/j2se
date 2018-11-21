@@ -5,14 +5,10 @@ import java.util.Random;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/11/13 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
+
 public class CompletableFutureInAction1 {
 
-    private final static Random RANDOM = new Random(System.currentTimeMillis());
+    private final static Random RANDOM = new Random();
 
     public static void main(String[] args)
             throws ExecutionException, InterruptedException {
@@ -21,12 +17,14 @@ public class CompletableFutureInAction1 {
         CompletableFuture<Double> completableFuture = new CompletableFuture<>();
         new Thread(() -> {
             double value = get();
+            // 把结果设置到completableFuture中
             completableFuture.complete(value);
         }).start();
 
         System.out.println("===no===block....");
 
         completableFuture.whenComplete((v, t) -> {
+            // 当任务即算完成，在这里输出completableFuture里面的结果
             Optional.ofNullable(v).ifPresent(System.out::println);
             Optional.ofNullable(t).ifPresent(x -> x.printStackTrace());
         });

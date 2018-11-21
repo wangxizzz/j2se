@@ -2,11 +2,9 @@ package java8.completableFuture;
 
 import java.util.concurrent.*;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/11/7 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
+/**
+ * JDK中Future的简单应用。
+ */
 public class FutureInAction2 {
 
     public static void main(String[] args)
@@ -22,15 +20,22 @@ public class FutureInAction2 {
             }
         });
 
+        //...在等结果的时候，这里可以做一些自己的逻辑。
+        //...在等结果的时候，这里可以做一些自己的逻辑。
+        //...在等结果的时候，这里可以做一些自己的逻辑。
         //...
-        //...
-        //...
-        //...
-        //String value = future.get(10, TimeUnit.MICROSECONDS);
+        /**
+         * get()方法，是异步返回结果，如果结果一直没有来，就会一直阻塞。
+         * 可以设置超时时间，在一定的时间，还没有得到结果就会抛出异常。这里是10 ms
+         */
+//        String value = future.get(10, TimeUnit.MICROSECONDS);
         while (!future.isDone()) {
             Thread.sleep(10);
         }
         System.out.println(future.get());
+        /**
+         * 线程池需要关闭，否则的话程序根本没有停。
+         */
         executorService.shutdown();
     }
 }
