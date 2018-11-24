@@ -15,4 +15,21 @@ public class Demo01 {
         sb.reverse();
         
     }
+
+    /**
+     * 测试阶乘的计算的long型溢出问题
+     */
+    @Test
+    public void test02() {
+        long result = 1L;
+        for (int i = 1; i < 100; i++) {
+            result *= i;
+            if (result >= Long.MAX_VALUE / 10) {
+                System.out.println("溢出了");
+                System.out.println(i);
+                break;
+            }
+        }
+        System.out.println(result);
+    }
 }

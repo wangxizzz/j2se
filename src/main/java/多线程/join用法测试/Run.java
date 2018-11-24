@@ -11,7 +11,7 @@ public class Run {
                 System.out.println(Thread.currentThread().getName());
                 try {
                     System.out.println("t1线程在进行大规模运算中....");
-                    Thread.sleep(5000);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -20,6 +20,7 @@ public class Run {
             //线程t1正常执行，而当前的main线程进行无限期的阻塞
             //等待线程t1销毁后再继续执行main线程后面的代码
             t1.join();
+            Thread.sleep(20);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
