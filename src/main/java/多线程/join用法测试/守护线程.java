@@ -16,7 +16,7 @@ public class 守护线程 {
             System.out.println("aaa");
         });
         /**
-         * 此时如果不调用shutdown()，程序将不会结束。因为此时FixedThreadPool里面的线程不是Daemon
+         * 此时如果不调用shutdown()，程序将不会结束。因为此时FixedThreadPool里面的线程不是Daemon，默认为false
          */
         e.shutdown();
 

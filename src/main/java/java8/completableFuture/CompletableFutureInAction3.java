@@ -2,17 +2,13 @@ package java8.completableFuture;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static java.util.stream.Collectors.toList;
 
-/***************************************
- * @author:Alex Wang
- * @Date:2016/11/13 QQ:532500648
- * QQ交流群:286081824
- ***************************************/
 public class CompletableFutureInAction3 {
 
     public static void main(String[] args) {
@@ -23,9 +19,13 @@ public class CompletableFutureInAction3 {
         });
 
        /* CompletableFuture.supplyAsync(CompletableFutureInAction1::get, executor)
-                .thenApply(CompletableFutureInAction3::multiply)
+                .thenApply((value) -> CompletableFutureInAction3.multiply(value))
                 .whenComplete((v, t) -> Optional.ofNullable(v).ifPresent(System.out::println));*/
 
+        /**
+         * 下面代码的需求如下：我有一系列商品ID(productionIDs),现在我需要查出这些商品的价格，
+         * 通过queryProduction()，然后用10倍的价格卖出。
+         */
         List<Integer> productionIDs = Arrays.asList(1, 2, 3, 4, 5);
         List<Double> result = productionIDs
                 .stream()
@@ -34,6 +34,7 @@ public class CompletableFutureInAction3 {
                 .map(CompletableFuture::join).collect(toList());
 
         System.out.println(result);
+        executor.shutdown();
     }
 
     private static double multiply(double value) {
@@ -46,6 +47,11 @@ public class CompletableFutureInAction3 {
         return value * 10d;
     }
 
+    /**
+     * 通过商品id查询商品的价格
+     * @param i 商品Id
+     * @return 商品价格
+     */
     private static double queryProduction(int i) {
         return CompletableFutureInAction1.get();
     }
