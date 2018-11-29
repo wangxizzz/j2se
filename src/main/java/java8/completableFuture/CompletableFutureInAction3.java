@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
 
@@ -24,14 +25,15 @@ public class CompletableFutureInAction3 {
 
         /**
          * 下面代码的需求如下：我有一系列商品ID(productionIDs),现在我需要查出这些商品的价格，
-         * 通过queryProduction()，然后用10倍的价格卖出。
+         * 通过queryProduction()，然后用10倍的价格卖出，通过multiply函数。
          */
         List<Integer> productionIDs = Arrays.asList(1, 2, 3, 4, 5);
+        // 下面可以并行执行
         List<Double> result = productionIDs
                 .stream()
                 .map(i -> CompletableFuture.supplyAsync(() -> queryProduction(i), executor))
                 .map(future -> future.thenApply(CompletableFutureInAction3::multiply))
-                .map(CompletableFuture::join).collect(toList());
+                .map(CompletableFuture::join).collect(Collectors.toList()); // 这个join表示把各个线程算出来的结果 加入容器中。具体可以参照javadoc
 
         System.out.println(result);
         executor.shutdown();
