@@ -13,6 +13,7 @@ public class ArraySort implements Runnable{
         for (int i = 0, length = nums.length; i < length; i++) {
             new Thread(new ArraySort(nums[i])).start();
         }
+        System.out.println("sssssssssssssss");
     }
 
     @Override
