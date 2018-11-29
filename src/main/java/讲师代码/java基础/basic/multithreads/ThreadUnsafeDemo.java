@@ -28,7 +28,7 @@ public class ThreadUnsafeDemo {
             int threadIndex = i;
             Thread thread = new Thread(() -> {                
                 for (int j = 0; j < 1000; j++) {
-//                    logger.trace("{}th thread {}th number count:{}", threadIndex, j, ++count);
+                    logger.trace("{}th thread {}th number count:{}", threadIndex, j, ++count);
                 }               
             });
             threads[i] = thread;
