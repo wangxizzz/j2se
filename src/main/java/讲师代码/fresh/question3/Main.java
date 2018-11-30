@@ -13,11 +13,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.stream.Stream;
 
-/**
- * Copyright (C) Qunar.com - All Rights Reserved.
- *
- * @author Mingxin Wang
- */
+
 public final class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 
@@ -26,7 +22,7 @@ public final class Main {
         Stream<String> dataStream;
         try {
             dataStream = Resources.asCharSource(
-                    new URL("https://owncloud.corp.qunar.com/index.php/s/2mElvSWUJgppSBx/download"),
+                    new URL(""),
                     Charset.defaultCharset())
                     .lines();
         } catch (IOException e) {
@@ -38,7 +34,7 @@ public final class Main {
         PropDictionary dict;
         try {
             // 按行读取prop文件
-            List<String> propList = Resources.readLines(new URL("https://owncloud.corp.qunar.com/index.php/s/2pvS0d2Zs5onsF2/download"), Charset.defaultCharset());
+            List<String> propList = Resources.readLines(new URL(""), Charset.defaultCharset());
 
             // 将prop文件组织为字典
             dict = PropDictionary.build(propList);

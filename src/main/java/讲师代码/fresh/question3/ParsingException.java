@@ -1,7 +1,6 @@
 package 讲师代码.fresh.question3;
 
 /**
- * Copyright (C) Qunar.com - All Rights Reserved.
  *
  * @author Mingxin Wang
  *

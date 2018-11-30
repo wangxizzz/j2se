@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.util.Scanner;
 
 /**
- * Copyright (C) Qunar.com - All Rights Reserved.
  *
  * @author Mingxin Wang
  */

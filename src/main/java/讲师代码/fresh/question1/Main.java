@@ -9,11 +9,7 @@ import java.nio.charset.Charset;
 import java.text.ParseException;
 import java.util.List;
 
-/**
- * Copyright (C) Qunar.com - All Rights Reserved.
- *
- * @author Mingxin Wang
- */
+
 public final class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
 

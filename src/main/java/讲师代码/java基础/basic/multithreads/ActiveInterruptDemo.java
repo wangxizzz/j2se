@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 /**
  * 
  *
- * @author Guanying Piao
+ * @author
  *
  * 2018-06-24
  */
@@ -34,6 +34,7 @@ public class ActiveInterruptDemo {
         } catch (InterruptedException e) {
             logger.warn("I was interruped before I interrup others...");
         }
+        // 在主线程中中断thread线程。
         thread.interrupt();
     }
 

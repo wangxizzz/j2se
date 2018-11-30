@@ -8,7 +8,6 @@ import java.nio.charset.Charset;
 import java.util.Iterator;
 
 /**
- * Copyright (C) Qunar.com - All Rights Reserved.
  *
  * @author Mingxin Wang
  */

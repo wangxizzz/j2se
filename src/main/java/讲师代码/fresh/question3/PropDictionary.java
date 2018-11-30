@@ -9,9 +9,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Copyright (C) Qunar.com - All Rights Reserved.
- *
- * @author Mingxin Wang
  *
  * 资源字典
  */

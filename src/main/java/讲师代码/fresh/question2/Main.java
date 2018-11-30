@@ -12,11 +12,6 @@ import java.nio.charset.Charset;
 import java.util.List;
 import java.util.function.Consumer;
 
-/**
- * Copyright (C) Qunar.com - All Rights Reserved.
- *
- * @author Mingxin Wang
- */
 public class Main {
     private static final Logger LOGGER = LoggerFactory.getLogger(Main.class);
     private static final String START_COMMENT_TOKEN = "<!--";

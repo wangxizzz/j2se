@@ -20,7 +20,6 @@ public class IsInterruptedDemo {
     public IsInterruptedDemo() {}
 
     public static void main(String[] args) throws InterruptedException {
-        long begin = System.currentTimeMillis();
         Thread thread = new Thread(() -> {
             long start = System.currentTimeMillis();
             while (System.currentTimeMillis() - start < 1000L) {
@@ -40,6 +39,5 @@ public class IsInterruptedDemo {
         }
         thread.interrupt();
         thread.join();
-        logger.info("相差的时间是{}", System.currentTimeMillis() - begin);
     }
 }

@@ -9,11 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-/**
- * Copyright (C) Qunar.com - All Rights Reserved.
- *
- * @author Mingxin Wang
- */
+
 final class Statistic {
     private static final int GET = 0, POST = 1, HEAD = 2;
     private static final String[] tags = {"GET", "POST", "HEAD"};

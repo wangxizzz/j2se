@@ -3,7 +3,6 @@ package 讲师代码.fresh.question5;
 import java.util.Optional;
 
 /**
- * Copyright (C) Qunar.com - All Rights Reserved.
  *
  * @author Mingxin Wang
  */

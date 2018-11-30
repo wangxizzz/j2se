@@ -5,7 +5,6 @@ import com.google.common.base.Splitter;
 import java.util.regex.Pattern;
 
 /**
- * Copyright (C) Qunar.com - All Rights Reserved.
  *
  * @author Mingxin Wang
  *

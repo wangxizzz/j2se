@@ -17,7 +17,6 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
- * 题目1：http://gitlab.corp.qunar.com/bin.qiao/java-guava-collection-homework/把这个地址gitclone出来，
  * 实现CityClient里面TODO的方法（每个方法的含义，参数，返回值都在代码的注释里面了）
  * 
  * * CityClient is used to query information about a city. <br/>
