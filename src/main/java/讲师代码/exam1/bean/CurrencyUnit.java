@@ -3,7 +3,6 @@ package 讲师代码.exam1.bean;
 import java.util.Objects;
 
 /**
- * Copyright (C) Qunar.com - All Rights Reserved.
  *
  * @author Mingxin Wang
  */

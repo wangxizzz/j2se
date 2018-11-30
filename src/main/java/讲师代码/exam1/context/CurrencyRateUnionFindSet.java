@@ -12,7 +12,6 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Copyright (C) Qunar.com - All Rights Reserved.
  *
  * @author Mingxin Wang
  */

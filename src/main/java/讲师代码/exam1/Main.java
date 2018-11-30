@@ -6,7 +6,6 @@ import 讲师代码.exam1.context.CurrencyCalculationContext;
 import java.util.Scanner;
 
 /**
- * Copyright (C) Qunar.com - All Rights Reserved.
  *
  * @author Mingxin Wang
  */

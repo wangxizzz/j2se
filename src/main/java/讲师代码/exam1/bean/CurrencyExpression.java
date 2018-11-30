@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableSet;
 import 讲师代码.exam1.exception.IllFormedExpressionException;
 
 /**
- * Copyright (C) Qunar.com - All Rights Reserved.
  *
  * @author Mingxin Wang
  */

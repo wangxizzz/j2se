@@ -12,7 +12,6 @@ import 讲师代码.exam1.exception.InvalidRateException;
 import java.util.ArrayList;
 
 /**
- * Copyright (C) Qunar.com - All Rights Reserved.
  *
  * @author Mingxin Wang
  */
