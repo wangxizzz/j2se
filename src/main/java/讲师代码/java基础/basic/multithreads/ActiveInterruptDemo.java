@@ -22,7 +22,7 @@ public class ActiveInterruptDemo {
     public static void main(String[] args) {
         Thread thread = new Thread(() -> {
             long start = System.currentTimeMillis();
-            while (System.currentTimeMillis() - start < 10000L) {
+            while (System.currentTimeMillis() - start < 2000L) {
                 logger.info("I am busy.......");
             }
             logger.info("I am done with my job, nobody interruped me");

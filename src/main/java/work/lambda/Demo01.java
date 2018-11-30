@@ -4,9 +4,11 @@ import org.apache.commons.lang3.mutable.MutableInt;
 import org.junit.Test;
 
 /**
- * @Auther: wxi.wang
- * @Date: 18-11-30 09:44
- * @Description:
+ *
+ *
+ * @author
+ *
+ * 2018-06-30
  */
 public class Demo01 {
     /**
@@ -18,8 +20,6 @@ public class Demo01 {
         // 可以把值封装到对象中，然后可以在lambda中使用。
         MutableInt i = new MutableInt(0);
         MyInt myInt = new MyInt(1);
-        Integer integer = new Integer(100);
-        int a = 0;
         new Thread(() -> {
             i.increment();
             i.add(100);
@@ -33,13 +33,13 @@ public class Demo01 {
     }
     class MyInt {
         private int value;
-        public MyInt(int value){
+        private MyInt(int value){
             this.value = value;
         }
         public void add(int opt) {
             value += opt;
         }
-        public void increment() {
+        private void increment() {
             value++;
         }
         public int get() {

@@ -34,7 +34,9 @@ public class FuturesDemo {
     
     public static void main(String[] args) {
         AtomicInteger threadIndex = new AtomicInteger(0);
+        // 定义线程的名字
         ExecutorService executorService = Executors.newFixedThreadPool(5, r -> new Thread(r, "thread-" + threadIndex.getAndIncrement()));
+
         ListeningExecutorService listeningExecutorService = MoreExecutors.listeningDecorator(executorService);
         ExecutorService finishExecutorService = Executors.newSingleThreadExecutor(r -> new Thread(r, "finisher"));
         int jobCount = 5;

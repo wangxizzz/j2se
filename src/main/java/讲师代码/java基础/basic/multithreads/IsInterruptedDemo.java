@@ -19,10 +19,11 @@ public class IsInterruptedDemo {
 
     public IsInterruptedDemo() {}
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        long begin = System.currentTimeMillis();
         Thread thread = new Thread(() -> {
             long start = System.currentTimeMillis();
-            while (System.currentTimeMillis() - start < 10000L) {
+            while (System.currentTimeMillis() - start < 1000L) {
                 if (Thread.currentThread().isInterrupted()) {
                     logger.info("Somebody interrupt me, ignore it....");
                 } else {
@@ -38,6 +39,7 @@ public class IsInterruptedDemo {
             logger.warn("I was interruped before I interrup others...");
         }
         thread.interrupt();
+        thread.join();
+        logger.info("相差的时间是{}", System.currentTimeMillis() - begin);
     }
-
 }
