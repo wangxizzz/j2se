@@ -32,7 +32,7 @@ public class CompletableFutureInAction3 {
         List<Double> result = productionIDs
                 .stream()
                 .map(i -> CompletableFuture.supplyAsync(() -> queryProduction(i), executor))
-                .map(future -> future.thenApply(CompletableFutureInAction3::multiply))
+                .map(completableFuture -> completableFuture.thenApply((value) -> CompletableFutureInAction3.multiply(value)))
                 .map(CompletableFuture::join).collect(Collectors.toList()); // 这个join表示把各个线程算出来的结果 加入容器中。具体可以参照javadoc
 
         System.out.println(result);
