@@ -40,7 +40,7 @@ public class OptionalUsage {
         // 如果nameOptional为null,不会抛出异常，会输出括号里的内容。
         System.out.println(nameOptional.orElse("empty Value"));
 
-        // 测试容器里面的值存不存在。
+        // 测试容器里面的值存不存在。不建议使用此方法
         System.out.println(nameOptional.isPresent());
 
         // 如果nameOptional存在就会执行Consumer接口

@@ -24,7 +24,7 @@ public class CompletableFutureInAction1 {
         System.out.println("===no===block....");
 
         completableFuture.whenComplete((v, t) -> {
-            // 当任务即算完成，在这里输出completableFuture里面的结果
+            // 当任务即算完成，在这里输出completableFuture里面的结果,v表示value
             Optional.ofNullable(v).ifPresent(System.out::println);
             Optional.ofNullable(t).ifPresent(x -> x.printStackTrace());
         });
