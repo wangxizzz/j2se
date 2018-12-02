@@ -33,7 +33,7 @@ public class CompletableFutureInAction3 {
                 .stream()
                 .map(i -> CompletableFuture.supplyAsync(() -> queryProduction(i), executor))
                 .map(completableFuture -> completableFuture.thenApply((value) -> CompletableFutureInAction3.multiply(value)))
-                .map(CompletableFuture::join).collect(Collectors.toList()); // 这个join表示把各个线程算出来的结果 加入容器中。具体可以参照javadoc
+                .map(CompletableFuture::join).collect(Collectors.toList()); // 这个join表示把各个线程算出来的结果(并行执行) 加入容器中。具体可以参照javadoc
 
         System.out.println(result);
         executor.shutdown();
