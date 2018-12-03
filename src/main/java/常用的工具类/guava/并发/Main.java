@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -30,20 +29,13 @@ public class Main {
 
             completableFutures.add(future);
         }
-        // 遍历completableFutures，完成后执行回调
-        for (CompletableFuture<Integer> c : completableFutures) {
-            c.whenCompleteAsync((v ,t) -> {
-                Optional.ofNullable(v).ifPresent((y) -> LOGGER.info("结果为{}",y));
-                Optional.ofNullable(t).ifPresent((y) -> LOGGER.info("{}",y));
-            }, service);
+
+        CompletableFuture<List<Integer>> allFuture = CompletableFutures.successfulAsList(completableFutures);
+        try {
+            LOGGER.info("{}", allFuture.get());
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
         }
-        completableFutures.forEach((f) -> {
-            try {
-                f.get();
-            } catch (InterruptedException | ExecutionException e) {
-                LOGGER.warn("{}", e);
-            }
-        });
         service.shutdown();
     }
 }

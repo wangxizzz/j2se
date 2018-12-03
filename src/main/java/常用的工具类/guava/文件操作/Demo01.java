@@ -33,7 +33,7 @@ public class Demo01 {
 
         // 通过URL读取资源文件，并包装为流对象
         Stream<String> dataStream = Resources.asCharSource(
-                new URL("https://owncloud.corp.qunar.com/index.php/s/2mElvSWUJgppSBx/download"),
+                new URL("a.txt"),
                 Charset.defaultCharset())
                 .lines();
         // 将输入流转化为输出流

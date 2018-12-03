@@ -1,9 +1,9 @@
 package 常用的工具类.guava.并发;
 
-import com.google.common.util.concurrent.ListenableFuture;
-
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
 
 /**
  * @author wxi.wang
@@ -11,17 +11,21 @@ import java.util.concurrent.CompletableFuture;
  */
 public final class CompletableFutures {
     private CompletableFutures() {}
-    public static <V> CompletableFuture<List<V>> successfulAsList(Iterable<? extends CompletableFuture<? extends V>> futures) {
-        futures.forEach((future) -> {
-            System.out.println(future);
+    static <V> CompletableFuture<List<V>> successfulAsList(Iterable<? extends CompletableFuture<? extends V>> futures) {
+        CompletableFuture<List<V>> allFuture = CompletableFuture.supplyAsync(() -> {
+           List<V> list = new ArrayList<>();
+           for (CompletableFuture<? extends V> c : futures) {
+               c.whenCompleteAsync((v, t) -> {
+                   try {
+                       list.add(c.get());
+                   } catch (InterruptedException | ExecutionException e) {
+                       e.printStackTrace();
+                   }
+               });
+           }
+           return list;
         });
-        return null;
+        return allFuture;
     }
 
-    public static <V> ListenableFuture<List<V>> successfulAsList1(Iterable<? extends ListenableFuture<? extends V>> futures) {
-        futures.forEach((future) -> {
-            System.out.println(future.isDone());
-        });
-        return null;
-    }
 }
