@@ -2,6 +2,7 @@ package java8.completableFuture;
 
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -12,6 +13,7 @@ public class CompletableFutureInAction2 {
 
     public static void main(String[] args)
             throws InterruptedException {
+
         AtomicBoolean finished = new AtomicBoolean(false);
         ExecutorService executor = Executors.newFixedThreadPool(2, r -> {
             Thread t = new Thread(r);

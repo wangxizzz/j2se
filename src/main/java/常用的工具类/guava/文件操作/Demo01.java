@@ -6,8 +6,11 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.List;
@@ -25,7 +28,7 @@ public class Demo01 {
     @Test
     public void test01() throws IOException {
         String result = "ssssssssssssss";
-        // 读文件，从resources文件夹中读取文件
+        // 读文件，从resources文件夹中读取文件,这个方法是一次性把文件全部读取到内存中
         List<String> data = Resources.readLines(Resources.getResource("a.txt"), Charset.defaultCharset());
         // 写文件，把result写入文件，路径为当前的项目路径下。
         Files.asCharSink(new File(常用的工具类.guava.并发.Demo01.class.getResource("/").getPath() + "validLineCount.txt"), Charset.defaultCharset())
@@ -41,5 +44,18 @@ public class Demo01 {
         // 写入文件
         Files.asCharSink(new File(常用的工具类.guava.并发.Demo01.class.getResource("/").getPath() + "sdxl.txt"), Charset.defaultCharset())
                 .writeLines(convertedStream);
+    }
+
+    @Test
+    public void test02() throws IOException {
+        // 这种方法是一行读取到内存中，而不是一次性读整个文件
+        try (InputStream is = Demo01.class.getResourceAsStream("");
+             InputStreamReader isReader = new InputStreamReader(is);
+             BufferedReader reader = new BufferedReader(isReader)) {
+
+            reader.lines().forEach(line -> {
+                System.out.println(line);
+            });
+        }
     }
 }

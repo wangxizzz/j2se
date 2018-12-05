@@ -1,5 +1,7 @@
 package 常用的工具类.guava.集合;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Multiset;
 
@@ -18,6 +20,8 @@ public class MultiSetDemo {
         for (Multiset.Entry e : entries) {
             System.out.println(e.getElement() + "元素出现的次数是：" + e.getCount());
         }
-
+        HashMultimap<Integer, Integer> multimap = HashMultimap.create();
+        ArrayListMultimap<Integer, Integer> map = ArrayListMultimap.create();
+        ArrayListMultimap<Integer, Integer> map1 = ArrayListMultimap.create();
     }
 }

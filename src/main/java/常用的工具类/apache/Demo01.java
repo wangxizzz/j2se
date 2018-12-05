@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multiset;
 import com.google.common.io.Resources;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,5 +33,13 @@ public class Demo01 {
         }
     }
 
-
+    @Test
+    public void test02() {
+        // 统计两个字符串不同字符的个数
+        /**
+         * apache lang3参考https://www.cnblogs.com/shihaiming/p/7814804.html
+         */
+        int levenshteinDistance = StringUtils.getLevenshteinDistance("aaa", "aaaaa");
+        System.out.println(levenshteinDistance);
+    }
 }
