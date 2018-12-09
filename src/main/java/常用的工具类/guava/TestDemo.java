@@ -1,7 +1,9 @@
 package 常用的工具类.guava;
 
+import com.google.common.base.CharMatcher;
 import com.google.common.base.Joiner;
 import com.google.common.base.Splitter;
+import com.google.common.base.Stopwatch;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
@@ -12,6 +14,7 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author wxi.wang
@@ -81,8 +84,10 @@ public class TestDemo {
      */
     @Test
     public void test04() {
+        // omitEmptyStrings移除结果子串中的空字符串，trimResults移除每个子串中的空格，比如前后空格
         List<String> list = Lists.newArrayList(Splitter.on(',').trimResults().omitEmptyStrings().split("foo,bar,,   qux"));
         System.out.println(list);
+        Splitter.on(',').trimResults().omitEmptyStrings().split("foo,bar,,   qux");
         // withKeyValueSeparator表示　key-value利用:切分.把一个String分隔组合成Map
         Map<String, String> map = Splitter.on('#').withKeyValueSeparator(":").split("1:2#3:4");
         System.out.println(map);
@@ -106,6 +111,31 @@ public class TestDemo {
         System.out.println(supplier.get());
         // 可以把上步计算的结果保存下来，防止重复计算
         Supplier<Integer> memoize = Suppliers.memoize(supplier);
+    }
+
+    /**
+     * 测试CharMatcher常用API
+     */
+    @Test
+    public void test06() {
+        System.out.println(CharMatcher.is('a').countIn("aabb"));
+        // 首先是a，然后需要全部匹配后面的序列。也就是后面的序列需要全部都是a
+        System.out.println(CharMatcher.is('a').matchesAllOf("aaaa"));
+        // 是字符a,后面的字符序列只要一个a即可返回true
+        System.out.println(CharMatcher.is('a').matchesAnyOf("aba"));
+        // 后面的字符序列一个都不匹配a
+        System.out.println(CharMatcher.is('a').matchesNoneOf("fdgdg"));
+    }
+
+    /**
+     * 测试Stopwatch常见API
+     */
+    @Test
+    public void test07() throws InterruptedException {
+        Stopwatch stopwatch = Stopwatch.createStarted();
+        Thread.sleep(2000);
+        long millis = stopwatch.elapsed(TimeUnit.SECONDS);
+        System.out.println(millis);
 
     }
 }

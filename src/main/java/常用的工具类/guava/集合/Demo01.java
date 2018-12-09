@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  * 18-12-2
  */
 public class Demo01 {
-    public static final Logger LOGGER = LoggerFactory.getLogger(常用的工具类.guava.并发.Demo01.class);
+    public static final Logger LOGGER = LoggerFactory.getLogger(Demo01.class);
     /**
      *list集合的使用
      */
