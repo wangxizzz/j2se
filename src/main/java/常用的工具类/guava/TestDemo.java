@@ -134,6 +134,7 @@ public class TestDemo {
     public void test07() throws InterruptedException {
         Stopwatch stopwatch = Stopwatch.createStarted();
         Thread.sleep(2000);
+        stopwatch.stop(); // optional
         long millis = stopwatch.elapsed(TimeUnit.SECONDS);
         System.out.println(millis);
 
