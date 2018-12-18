@@ -1,16 +1,21 @@
 package java8.time;
 
+import org.junit.Test;
+
 import java.text.ParseException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
+import java.util.Date;
 
 /**
  * 日期date与时间time是分开的
  */
 public class DateTest {
-    public static void main(String[] args) throws ParseException, InterruptedException {
-        /* // 多线程会解析异常 sdf是30个线程共享变量
+
+    @Test
+    public void test01() {
+               /* // 多线程会解析异常 sdf是30个线程共享变量
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         for (int i = 0; i < 30; i++) {
             new Thread(() -> {
@@ -25,18 +30,9 @@ public class DateTest {
                 }
             }).start();
         }*/
-
-//        testLocalDate();
-//        testLocalTime();
-//        combineLocalDateAndTime();
-//        testInstant();
-//        testDuration();
-//        testPeriod();
-//        testDateFormat();
-        testDateParse();
     }
-
-    private static void testLocalDate() {
+    @Test
+    public void testLocalDate() {
         // 自定义日期
         LocalDate localDate = LocalDate.of(2016, 11, 13);
         System.out.println(localDate.getYear());
@@ -49,8 +45,8 @@ public class DateTest {
 
         localDate.get(ChronoField.DAY_OF_MONTH);
     }
-
-    private static void testLocalTime() {
+    @Test
+    public void testLocalTime() {
         // 可以拿到当前的时间
         LocalTime time = LocalTime.now();
         System.out.println(time.getHour());
@@ -58,7 +54,8 @@ public class DateTest {
         System.out.println(time.getSecond());
     }
 
-    private static void combineLocalDateAndTime() {
+    @Test
+    public void combineLocalDateAndTime() {
         // 获取当前日期
         LocalDate localDate = LocalDate.now();
         // 获取当前时间
@@ -68,6 +65,7 @@ public class DateTest {
         System.out.println(localDateTime.toString());
         LocalDateTime now = LocalDateTime.now();
         System.out.println(now);
+
     }
 
     /**
@@ -101,7 +99,8 @@ public class DateTest {
     /**
      * 格式化日期
      */
-    private static void testDateFormat() {
+    @Test
+    public void testDateFormat() {
         LocalDate localDate = LocalDate.now();
         String format1 = localDate.format(DateTimeFormatter.BASIC_ISO_DATE);
 //        String format2 = localDate.format(DateTimeFormatter.ISO_LOCAL_TIME);
@@ -111,6 +110,12 @@ public class DateTest {
         DateTimeFormatter mySelfFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         String format = localDate.format(mySelfFormatter);
         System.out.println(format);
+
+        // 格式化日期和时间
+        DateTimeFormatter mySelfFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String format2 = localDateTime.format(mySelfFormatter1);
+        System.out.println(format2);
     }
 
     /**

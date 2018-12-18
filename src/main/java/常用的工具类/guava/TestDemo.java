@@ -7,13 +7,21 @@ import com.google.common.base.Stopwatch;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
+import com.google.common.collect.Comparators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Ordering;
+import com.google.common.collect.Sets;
 import com.google.common.primitives.Ints;
+import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -137,6 +145,65 @@ public class TestDemo {
         stopwatch.stop(); // optional
         long millis = stopwatch.elapsed(TimeUnit.SECONDS);
         System.out.println(millis);
+    }
 
+    /**
+     * Lists常用API
+     */
+    @Test
+    public void test08() {
+        /**测试reverse()*/
+        List<Integer> list = Lists.newArrayList(1,2,3);
+        List<Integer> reverse = Lists.reverse(list);
+        System.out.println(reverse);
+        // 修改会反映的原list上
+        reverse.add(100);
+        System.out.println(reverse);
+        System.out.println(list);
+        /**测试partition,把list进行分区*/
+        List<List<Integer>> partition = Lists.partition(Arrays.asList(1, 2, 3, 4), 2);
+        System.out.println(partition);
+        /**测试transform，转换list的元素**/
+        List<Integer> transform = Lists.transform(list, i -> i + 1);
+        System.out.println(transform);
+    }
+
+    /**
+     * 测试Sets常用API
+     */
+    @Test
+    public void test09() {
+        Set<Integer> set1 = Sets.newHashSet(1,2,3,4);
+        HashSet<Integer> set2 = Sets.newHashSet(2, 4, 5, 6);
+        // 求并集
+        Sets.SetView<Integer> union = Sets.union(set1, set2);
+        System.out.println(union);
+        // 求交集
+        Sets.SetView<Integer> intersection = Sets.intersection(set1, set2);
+        System.out.println(intersection);
+        // 在A不在B中
+        Sets.SetView<Integer> difference = Sets.difference(set1, set2);
+        System.out.println(difference);
+        // 传入的是一个回调方法，然后过滤部分值
+        Set<Integer> filter = Sets.filter(set1, (i) -> i > 2);
+        System.out.println(filter);
+    }
+
+    /**
+     * 测试Ordering
+     */
+    @Test
+    public void test10() {
+        List<Integer> list = Lists.newArrayList(1,2,20,3,4,5);
+        // for java8 users
+        list.stream().collect(Comparators.greatest(3, (Integer x, Integer y) -> Integer.compare(x, y)));
+        Ordering<Integer> ordering = new Ordering<Integer>() {
+            @Override
+            public int compare(@Nullable Integer left, @Nullable Integer right) {
+                return Integer.compare(left, right);
+            }
+        };
+        List<Integer> list1 = ordering.greatestOf(list, 3);
+        System.out.println(list1);
     }
 }
