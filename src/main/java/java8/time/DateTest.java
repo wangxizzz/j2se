@@ -71,16 +71,19 @@ public class DateTest {
     /**
      * Instant表示一个时间点，当前瞬间。
      */
-    private static void testInstant() throws InterruptedException {
+    @Test
+    public void testInstant() throws InterruptedException {
         Instant start = Instant.now();
         Thread.sleep(1000L);
         Instant end = Instant.now();
         // Duration代表一个时间的片段，表示跨了多少时间
         Duration duration = Duration.between(start, end);
         System.out.println(duration.toMillis());
+        System.out.println(duration.toHours());
     }
 
-    private static void testDuration() {
+    @Test
+    public void testDuration() {
         LocalTime time = LocalTime.now();
         // minusHours 表示subtracted减掉多长时间
         LocalTime beforeTime = time.minusHours(1);
