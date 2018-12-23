@@ -7,18 +7,31 @@ import com.google.common.base.Stopwatch;
 import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
+import com.google.common.collect.AbstractIterator;
 import com.google.common.collect.Comparators;
+import com.google.common.collect.ForwardingList;
+import com.google.common.collect.ForwardingMap;
+import com.google.common.collect.ForwardingMultimap;
+import com.google.common.collect.ForwardingQueue;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Multimaps;
 import com.google.common.collect.Ordering;
+import com.google.common.collect.PeekingIterator;
 import com.google.common.collect.Sets;
 import com.google.common.primitives.Ints;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -78,7 +91,7 @@ public class TestDemo {
     @Test
     public void test03() {
         // 指定连接符，拼接字符串
-        String s = Joiner.on('|').join(1,2,3);
+        String s = Joiner.on('|').join(1,2,3,4);
         System.out.println(s);
         // 把一个Map拼接成String
         Map<Integer, Integer> map = Maps.newHashMap();
@@ -86,6 +99,10 @@ public class TestDemo {
         map.put(2,3);
         String join = Joiner.on("#").withKeyValueSeparator("=").join(map);
         System.out.println(join);
+
+        // 跳过null元素
+        String join1 = Joiner.on(" ").skipNulls().join(1, null, 3);
+        System.out.println(join1);
     }
     /**
      * 测试Splitter
@@ -206,4 +223,89 @@ public class TestDemo {
         List<Integer> list1 = ordering.greatestOf(list, 3);
         System.out.println(list1);
     }
+
+    /**
+     * 测试ForwardingList
+     */
+    @Test
+    public void test11() {
+        MyArrayList<Integer> a = new MyArrayList<>(new ArrayList<>());
+        a.add(11);
+        a.add(12);
+        a.add(13);
+        a.add(14);
+        System.out.println(a);
+        System.out.println(a.size());
+        // 需要在外面定义,保证每次返回的都是同一个容器
+        Multimap<String, Integer> multimap = HashMultimap.create();
+        ForwardingMultimap forwardingMultimap = new ForwardingMultimap() {
+            @Override
+            protected Multimap delegate() {
+                return multimap;
+            }
+        };
+        forwardingMultimap.put("aa", 1);
+        forwardingMultimap.put("aa", 2);
+        System.out.println(forwardingMultimap);
+    }
+
+    /**
+     * 测试PeekingIterator
+     */
+    @Test
+    public void test12() {
+        List<Integer> list = Lists.newArrayList(100,1,1,1,2,3,1,3);
+        /**
+         * 把list元素去重方法另一个list中,,注意这种去重方式,需要先把list排序
+         */
+        Collections.sort(list);
+        // Iterators.peekingIterator可以把jdk中的utl包下的iterator包装成PeekingIterator
+        PeekingIterator<Integer> peekingIterator = Iterators.peekingIterator(list.iterator());
+        List<Integer> result = Lists.newArrayList();
+        while (peekingIterator.hasNext()) {
+            int currentElement = peekingIterator.next();
+            // 如果下一个元素等于当前元素,那么就去除掉
+            while (peekingIterator.hasNext() && peekingIterator.peek().equals(currentElement)) {
+                peekingIterator.next();
+            }
+            result.add(currentElement);
+        }
+        System.out.println(result);
+    }
+
+    /**
+     * AbstractIterator测试
+     */
+    @Test
+    public void test13() {
+        List<Integer> list = Lists.newArrayList(null ,1,2,3, null, 4);
+        System.out.println(list.iterator().next());  // 直接取了第一个元素
+        Iterator<Integer> myIterator = skipNulls(list.iterator());  // 在这里把它包装成自己的Iterator
+        System.out.println(myIterator.next());  // 直接取了第一个元素,游标往后移了
+        System.out.println("=============================");
+        while (myIterator.hasNext()) {
+            System.out.println(myIterator.next());
+        }
+    }
+    private static Iterator<Integer> skipNulls(final Iterator<Integer> in) {
+        AbstractIterator<Integer> abstractIterator = new AbstractIterator<Integer>() {
+            @Override
+            protected Integer computeNext() {
+                while (in.hasNext()) {
+                    Integer s = in.next();
+                    if (s != null) {
+                        return s;
+                    }
+                }
+                return super.endOfData();
+            }
+        };
+        return abstractIterator;
+    }
+
+    @Test
+    public void test14() {
+
+    }
+
 }
