@@ -8,11 +8,13 @@ import com.google.common.base.Strings;
 import com.google.common.base.Supplier;
 import com.google.common.base.Suppliers;
 import com.google.common.collect.AbstractIterator;
+import com.google.common.collect.BiMap;
 import com.google.common.collect.Comparators;
 import com.google.common.collect.ForwardingList;
 import com.google.common.collect.ForwardingMap;
 import com.google.common.collect.ForwardingMultimap;
 import com.google.common.collect.ForwardingQueue;
+import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
@@ -303,9 +305,20 @@ public class TestDemo {
         return abstractIterator;
     }
 
+    /**
+     * 测试HashBiMap
+     * HashBiMap它的特点是它的 value 和它 key 一样也是不可重复的(value不可重复)，换句话说它的 key 和 value 是等价的。
+     * 如果你往 BiMap 的 value 里面放了重复的元素，就会得到 IllegalArgumentException
+     */
     @Test
     public void test14() {
-
+        BiMap<String, String> map = HashBiMap.create();
+        map.put("1", "2");
+//        map.put("2", "2");  会抛出异常
+        map.put("2", "3");
+        System.out.println(map);
+        BiMap<String, String> inverse = map.inverse();
+        System.out.println(inverse);
     }
 
 }
