@@ -1,5 +1,7 @@
 import org.junit.Test;
 
+import java.util.concurrent.ConcurrentHashMap;
+
 
 /**
  * @author wxi.wang
@@ -11,6 +13,9 @@ public class DemoTest {
      */
     @Test
     public void test01() {
-
+        ConcurrentHashMap<String, Boolean> c = new ConcurrentHashMap<>();
+        c.put("11", false);
+        System.out.println(c.get("aaa") == null);
+        System.out.println(c.get("11") != null);
     }
 }

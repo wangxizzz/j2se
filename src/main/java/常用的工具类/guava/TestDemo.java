@@ -16,6 +16,7 @@ import com.google.common.collect.ForwardingMultimap;
 import com.google.common.collect.ForwardingQueue;
 import com.google.common.collect.HashBiMap;
 import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterators;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -92,8 +93,9 @@ public class TestDemo {
      */
     @Test
     public void test03() {
+        Integer[] a = {1,2,3,4};
         // 指定连接符，拼接字符串
-        String s = Joiner.on('|').join(1,2,3,4);
+        String s = Joiner.on(";").join(a);
         System.out.println(s);
         // 把一个Map拼接成String
         Map<Integer, Integer> map = Maps.newHashMap();
@@ -307,7 +309,8 @@ public class TestDemo {
 
     /**
      * 测试HashBiMap
-     * HashBiMap它的特点是它的 value 和它 key 一样也是不可重复的(value不可重复)，换句话说它的 key 和 value 是等价的。
+     * HashBiMap它的特点是它的 value 和它 key 一样也是不可重复的(value不可重复)，
+     * 换句话说它的 key 和 value 是等价的。
      * 如果你往 BiMap 的 value 里面放了重复的元素，就会得到 IllegalArgumentException
      */
     @Test
@@ -321,4 +324,27 @@ public class TestDemo {
         System.out.println(inverse);
     }
 
+    /**
+     * 测试ImmutableList
+     */
+    @Test
+    public void test15() {
+        List<Integer> a = Arrays.asList(1,2,3,4,5,6);
+        a.add(100);
+        ImmutableList<Integer> list = ImmutableList.copyOf(a);
+        System.out.println(list);
+    }
+
+    /**
+     * 测试Arrays.copyOf()
+     * System.arraycopy() 方法解释参照Strings源码分析.
+     */
+    @Test
+    public void test16() {
+        int[] a = {1,2,3,4,5};
+        // 返回新长度的数组元素
+        int[] b = Arrays.copyOf(a, 3); // 方法是创建了一个新的数组返回
+        System.out.println(Arrays.toString(a));
+        System.out.println(Arrays.toString(b));
+    }
 }

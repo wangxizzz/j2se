@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.text.ParseException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoField;
 import java.util.Date;
 
@@ -117,6 +118,7 @@ public class DateTest {
         // 格式化日期和时间
         DateTimeFormatter mySelfFormatter1 = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println("====" + localDateTime);
         String format2 = localDateTime.format(mySelfFormatter1);
         System.out.println(format2);
     }
@@ -124,14 +126,16 @@ public class DateTest {
     /**
      * 解析时间
      */
-    private static void testDateParse() {
+    @Test
+    public void testDateParse() {
         String date1 = "20161113";
         LocalDate localDate = LocalDate.parse(date1, DateTimeFormatter.BASIC_ISO_DATE);
         System.out.println(localDate);
         
-        DateTimeFormatter mySelfFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        String date2 = "2016-11-13";
-        LocalDate localDate2 = LocalDate.parse(date2, mySelfFormatter);
+        DateTimeFormatter mySelfFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String date2 = "2016-11-90 12:22";
+        LocalDateTime localDate2 = LocalDateTime.parse(date2, mySelfFormatter);
         System.out.println(localDate2);
+        System.out.println(localDate2.format(mySelfFormatter));
     }
 }
