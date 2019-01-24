@@ -1,4 +1,4 @@
-package 多线程.day01;
+package 多线程.java并发编程之美.chapter1;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
