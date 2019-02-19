@@ -29,6 +29,7 @@ public class JoinDemo {
 
         threadOne.start();
         threadTwo.start();
+        // aaa
         try {
             threadOne.join();  // 等待threadOne返回
         } catch (InterruptedException e) {
