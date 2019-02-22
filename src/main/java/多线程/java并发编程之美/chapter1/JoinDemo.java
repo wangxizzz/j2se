@@ -29,9 +29,8 @@ public class JoinDemo {
 
         threadOne.start();
         threadTwo.start();
-        // aaa
         try {
-            threadOne.join();  // 等待threadOne返回
+            threadOne.join();  // 只要调用了join()方法,就是等待threadOne返回
         } catch (InterruptedException e) {
             log.error("main.....", e);
         }
