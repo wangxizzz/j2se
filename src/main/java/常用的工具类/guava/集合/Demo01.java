@@ -54,6 +54,19 @@ public class Demo01 {
     }
     @Test
     public void test03() {
+        String a = "120.0";
+        int b = (int)Float.parseFloat(a);
+        System.out.println(b);
 
+        List<Integer> list = Lists.newArrayList();
+        list.add(1);
+        list.add(3);
+        list.add(1);
+        list.add(1);
+        list.add(2);
+        list.add(2);
+
+        list = list.subList(0,3);
+        System.out.println(list);
     }
 }

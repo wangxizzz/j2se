@@ -59,6 +59,7 @@ public class DateTest {
     public void combineLocalDateAndTime() {
         // 获取当前日期
         LocalDate localDate = LocalDate.now();
+        System.out.println(localDate.getYear());
         // 获取当前时间
         LocalTime time = LocalTime.now();
 

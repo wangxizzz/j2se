@@ -1,6 +1,11 @@
+import com.google.common.base.Splitter;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicLong;
@@ -36,7 +41,24 @@ public class DemoTest {
 
     @Test
     public void test03() {   // 240
-        LongAdder longAdder = new LongAdder();
+        LocalDate localDate = LocalDate.now();
+        System.out.println(localDate.toString());
+        for (int i = 1; i <= 89; i++) {
+            System.out.println(localDate.plusDays(i).toString());
+        }
+    }
 
+    @Test
+    public void test04() {
+
+        List<User> users = new ArrayList<>();
+        users.add(new User(1, "22"));
+        users.add(new User(12, "22"));
+        System.out.println(users);
+
+        Set<User> set = new HashSet<>();
+        set.addAll(users);
+        System.out.println(users);
+        System.out.println(set);
     }
 }
