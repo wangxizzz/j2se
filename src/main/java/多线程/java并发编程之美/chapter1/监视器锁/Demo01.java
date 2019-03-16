@@ -11,7 +11,7 @@ public class Demo01 {
     private int count = 0;
 
     /**
-     * 方法里面的变量全部都是私有的(线程安全的) 不管是static还是非static
+     * 方法里面的变量全部都是私有的(线程安全的) 不管方法签名是static还是非static
      */
     private static void test01() {
         int i = 0;
