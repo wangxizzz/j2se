@@ -3,12 +3,17 @@ package java8;
 import org.junit.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class 排序 {
+/**
+ * <Description>
+ *
+ * @author wangxi
+ */
+public class Java8补充 {
     /**
+     * 4中对list排序方法
      * 对list集合自定义排序 采用Integer.compare()，可以有效地防止溢出
      */
     @Test
@@ -18,7 +23,7 @@ public class 排序 {
             list.add(i);
         }
         // 获得list里面的值.
-        list.sort(Comparator.comparing(Integer::intValue));
+        list.sort(Comparator.comparingInt(Integer::intValue));
         // 获得list里面的值
         list.sort(Integer::compare);
         System.out.println(list);
@@ -32,4 +37,18 @@ public class 排序 {
         });
         System.out.println(list);
     }
+
+    /**
+     * java8对list元素求和
+     */
+    @Test
+    public void test01() {
+        List<Integer> list = new ArrayList<>();
+        for (int i = 4; i > 0; i--) {
+            list.add(i);
+        }
+        int sum = list.stream().mapToInt(Integer::intValue).sum();
+        System.out.println(sum);
+    }
 }
+
