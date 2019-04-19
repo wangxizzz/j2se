@@ -1,0 +1,45 @@
+构造方法1，参数为Callable：
+public FutureTask(Callable<V> callable) {
+        if (callable == null)
+            throw new NullPointerException();
+        this.callable = callable;
+        this.state = NEW;       // ensure visibility of callable
+    }
+
+构造方法2，参数为Runnable：
+public FutureTask(Runnable runnable, V result) {
+        this.callable = Executors.callable(runnable, result);
+        this.state = NEW;       // ensure visibility of callable
+    }
+
+
+上述的第二个构造方法，传入的是Runnable接口的话，
+会通过Executors.callable（）方法转化为Callable。具体转化可见jdk源码或者博客
+
+这里为什么要将Runnable转化为Callable哪？首先看一下两者之间的区别：
+    (1) Callable规定的方法是call()，Runnable规定的方法是run()；
+    (2) Callable的任务执行后可返回值，而Runnable的任务是不能返回值得；
+    (3) call()方法可以抛出异常，run()方法不可以；
+    (4) 运行Callable任务可以拿到一个Future对象，Future 表示异步计算的结果。
+
+最关键的是第二点，就是Callable具有返回值，而Runnable没有返回值。
+Callable提供了检查计算是否完成的方法，以等待计算的完成，并获取计算的结果。
+
+计算完成后只能使用 get 方法来获取结果，如果线程没有执行完，
+Future.get()方法可能会阻塞当前线程的执行；如果线程出现异常，
+Future.get()会throws InterruptedException或者ExecutionException；如果线程已经取消，
+会抛出CancellationException。取消由cancel 方法来执行。isDone确定任务是正常完成还是被取消了。
+
+一旦计算完成，就不能再取消计算。如果为了可取消性而使用 Future 但又不提供可用的结果，
+则可以声明Future<?> 形式类型、并返回 null 作为底层任务的结果。
+
+
+2.execute和submit的区别  可见：Java并发编程.day7线程池的线程复用.ThreadPoolDemo3
+
+（1）execute()方法用于提交不需要返回值的任务，所以无法判断任务是否被线程池执行成功。
+通过以下代码可知execute()方法输入的任务是一个Runnable类的实例。
+
+（2）submit()方法用于提交需要返回值的任务。线程池会返回一个future类型的对象，
+ 通过这个future对象可以判断任务是否执行成功，并且可以通过future的get()方法来获取返回值，
+ get()方法会阻塞当前线程直到任务完成，而使用get（long timeout，TimeUnit unit）方法则会阻塞当前线程一段时间后立即返回，
+ 这时候有可能任务没有执行完。

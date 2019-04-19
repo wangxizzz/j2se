@@ -3,6 +3,10 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 /**
  * Description
  * Author wxi.wang
@@ -14,7 +18,6 @@ import lombok.ToString;
 @ToString
 public class User {
     private int id;
-
     private String username;
 
     @Override

@@ -34,4 +34,9 @@ public class Demo01 {
         System.out.println(result);
     }
 
+    @Test
+    public void test03() {
+        String s = "  s  ";
+        System.out.println(s.split(" ").length);
+    }
 }

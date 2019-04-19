@@ -61,4 +61,9 @@ public class DemoTest {
         System.out.println(users);
         System.out.println(set);
     }
+
+    @Test
+    public void test05() {
+        System.out.println(System.getProperty("user.dir"));
+    }
 }

@@ -1,0 +1,9 @@
+
+1.生产者消费者线程交叉问题；
+2.Future类的用法以及submit()、execute()等方法的使用；
+3.java虚拟机对synchronized关键字的优化，四种锁。
+4.AQS的理解；
+
+7.注意：一般主线程(main)的优先级较高
+8.ConcurrentHashMap
+9.ThreadLocal
