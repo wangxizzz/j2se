@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -130,5 +131,14 @@ public class Test01 {
         String s = "";
     }
 
-
+    /**
+     * java.sql带的时间戳的测试
+     */
+    @Test
+    public void test10() {
+        Timestamp ts = new Timestamp(System.currentTimeMillis());
+        String tsString = ts.toString().substring(0, 19);
+        String tsDate = ts.toString().substring(0, 10);
+        System.out.println(tsDate);
+    }
 }
