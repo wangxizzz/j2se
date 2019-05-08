@@ -1,7 +1,4 @@
-package 并发demo测试.day01;
-
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+package 多线程.并发demo测试.线程安全问题测试.day01;
 
 /**
  * <Description>
