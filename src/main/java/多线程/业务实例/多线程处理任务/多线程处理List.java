@@ -1,9 +1,6 @@
-package 多线程.业务实例.多线程处理List;
-
-import 常用的工具类.guava.并发.CompletableFutures;
+package 多线程.业务实例.多线程处理任务;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CompletableFuture;
