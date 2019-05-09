@@ -1,0 +1,123 @@
+package 多线程.业务实例;
+
+import com.spider.NovelSiteEnum;
+import com.spider.configuration.Configuration;
+import com.spider.entity.Chapter;
+import com.spider.entity.ChapterDetail;
+import com.spider.interfaces.IChapterDetailSpider;
+import com.spider.interfaces.IChapterSpider;
+import com.spider.interfaces.INovelDownload;
+import com.spider.util.ChapterDetailSpiderFactory;
+import com.spider.util.ChapterSpiderFactory;
+import com.spider.util.NovelSpiderUtil;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.*;
+import java.util.concurrent.*;
+
+/**
+ * 实现多线程下载任意网站的小说
+ *  1.拿到该网站某本小说所有章节：章节列表
+ *  2.通过计算，将小说分配给指定数量的线程，让这些线程并发解析，然后保存到文本文件中
+ *  3.通知主线程，将这些零散的文本文件合并成一个大文件。最后删除那些分片的小文件。
+ */
+public class NovelDownload implements INovelDownload {
+
+	@Override
+	public String download(String url, Configuration config) {
+		IChapterSpider spider = ChapterSpiderFactory.getChapterSpider(url);
+		// 1.拿到该网站某本小说所有章节：章节列表
+		List<Chapter> chapters = spider.getChapters(url);
+		// 某个线程下载好了，需要告诉主线程：我下载好了。
+		// 所有线程下载好了，合并。
+		int size = config.getSize();
+		// 2010章 每个线程下载100章
+		// 需要21个线程
+		// 一个int / int 结果是int
+		// 一个double / double 结果是double
+		//一个double / int 结果是double
+		//Math.ceil(double) 10 -> 10 10.5->11 10.1 ->11 -10 -> -10 -10.1 -> -10 -10.5 -> -10
+		int maxThreadSize = (int)Math.ceil(chapters.size() * 1.0 / size);
+		// String表示文件名，List<Chapter>表示单个线程下载的子章节
+		Map<String, List<Chapter>> downloadTaskAlloc = new HashMap<>();
+		for (int i = 0; i < maxThreadSize; i++) {
+			// i = 0 0-99	0-99.txt
+			// i = 1 100-199  100-199.txt
+			// i = 2 200-299 
+			// i = 3 300-399 
+			// ...
+			// i = 19 1900-1999
+			// i = 20 2000-2052
+			// 总共2053章
+			int fromIndex = i * (config.getSize());
+//			if (i == maxThreadSize - 1) {
+//				int toIndex = chapters.size() - 1;
+//			}
+			int toIndex = i == maxThreadSize - 1 ? chapters.size() : i * (config.getSize()) + config.getSize();
+			// 注意：subList的toIndex最后一个元素取不到，和substring()相同
+			downloadTaskAlloc.put(fromIndex + "-" + toIndex, chapters.subList(fromIndex, toIndex));
+		}
+		ExecutorService service = Executors.newFixedThreadPool(maxThreadSize);
+		Set<String> keySet = downloadTaskAlloc.keySet();
+		List<Future<String>> tasks = new ArrayList<>();
+
+        //通过这两段代码就可以创建缺失的路径
+        String savePath = config.getPath() + "/" + NovelSiteEnum.getEnumByUrl(url).getUrl();  // 可以根据小说名分目录，只需拼接路径即可
+        new File(savePath).mkdirs();  // 可以多级创建目录
+
+		for (String key : keySet) {
+		    // 提交任务，加入超时时间
+			tasks.add(service.submit(new DownloadCallable(savePath + "/" + key + ".txt", downloadTaskAlloc.get(key), config.getTryTimes())));
+		}
+		service.shutdown();
+		for (Future<String> future : tasks) {
+			try {
+				System.out.println(future.get() + ",下载完成");
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			}
+		}
+        NovelSpiderUtil.multiFileMerge(savePath, null, true);
+        return savePath + "/merge.txt";
+	}
+}
+
+class DownloadCallable implements Callable<String> {
+	private List<Chapter> chapters;
+	private String path;
+	private int tryTimes;
+	public DownloadCallable(String path, List<Chapter> chapters, int tryTimes) {
+		this.path = path;
+		this.chapters = chapters;
+		this.tryTimes = tryTimes;
+	}
+	@Override
+	public String call() throws Exception {
+		try (
+				PrintWriter out = new PrintWriter(new File(path), "utf-8");
+				) {
+			for (Chapter chapter : chapters) {
+				IChapterDetailSpider spider = ChapterDetailSpiderFactory.getChapterDetailSpider(chapter.getUrl());
+				ChapterDetail detail = null;
+
+                for (int i = 0; i < tryTimes; i++) {
+                    try {
+                        detail = spider.getChapterDetail(chapter.getUrl());
+                        out.println(detail.getTitle());
+                        out.println(detail.getContent());
+                        // 如果下载成功，直接退出循环
+                        break;
+                    } catch (RuntimeException e) {
+                        System.err.println("尝试第[" + (i + 1) + "/" + tryTimes + "]次下载失败了！");
+                    }
+                }
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return path;
+	}
+	
+}
