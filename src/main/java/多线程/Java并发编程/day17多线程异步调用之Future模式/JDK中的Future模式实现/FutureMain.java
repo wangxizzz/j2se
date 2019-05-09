@@ -24,12 +24,6 @@ public class FutureMain {
 
         System.out.println("请求完毕！");
 
-        try {
-            Thread.sleep(2000);
-            System.out.println("这里经过了一个2秒的操作！");
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
         //异步操作返回数据
         System.out.println("真实数据：" + futureTask.get());
         executorService.shutdown();

@@ -1,4 +1,4 @@
-package javaIO.文件IO;
+package javaIO.网络IO.原生态IO;
 
 import java.io.IOException;
 import java.io.RandomAccessFile;

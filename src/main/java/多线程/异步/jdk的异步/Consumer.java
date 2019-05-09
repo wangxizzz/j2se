@@ -4,11 +4,21 @@ import lombok.extern.slf4j.Slf4j;
 import 多线程.异步.User;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+
 @Slf4j
 public class Consumer {
     public static void main(String[] args) {
         Provider1 provider1 = new Provider1();
         CompletableFuture<User> completableFuture1 = provider1.getUer();
+        // CompletableFuture的get()会阻塞的。
+//        try {
+//            completableFuture1.get();
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        }
         completableFuture1.whenComplete((v, t) -> {
             if (t != null) {
                 log.error("错误。。。。");
