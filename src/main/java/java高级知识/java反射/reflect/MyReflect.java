@@ -1,10 +1,8 @@
-package java反射.reflect;
+package java高级知识.java反射.reflect;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +22,7 @@ public class MyReflect {
 	 */
 	@Before
 	public void init() throws Exception {
-		className = "java反射.reflect.Person";
+		className = "java高级知识.java反射.reflect.Person";
 		personClass = Class.forName(className);
 	}
 	/**
