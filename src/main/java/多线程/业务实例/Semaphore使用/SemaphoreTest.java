@@ -56,6 +56,7 @@ public class SemaphoreTest {
 
         System.out.println("主线程执行完毕");
         executorService.shutdown();
+        System.out.println("======");
     }
 }
 

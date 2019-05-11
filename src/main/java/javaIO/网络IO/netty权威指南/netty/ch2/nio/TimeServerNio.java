@@ -47,7 +47,7 @@ public class TimeServerNio {
             System.out.println("Timeserver start!!");
 
             SelectionKey key;
-            // 接收关闭指令
+            // 接收关闭指令，不断的去轮询Selector
             while(!stop){
                 // select()方法返回的值表示有多少个 Channel 可操作.
                 // 此方法会一直阻塞当前Thread直到至少一个channel准备好或者设置超时时间或被interrupted.

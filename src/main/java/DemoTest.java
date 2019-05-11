@@ -65,5 +65,10 @@ public class DemoTest {
     @Test
     public void test05() {
         System.out.println(System.getProperty("user.dir"));
+        int i = 0;
+        System.out.println(i++ + "======" + (++i));
+
+        String s = "I am  ";
+        System.out.println(Arrays.toString(s.split(" ")));
     }
 }
