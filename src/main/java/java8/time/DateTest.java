@@ -59,9 +59,10 @@ public class DateTest {
     public void combineLocalDateAndTime() {
         // 获取当前日期
         LocalDate localDate = LocalDate.now();
-        System.out.println(localDate.getYear());
+        System.out.println(localDate);
         // 获取当前时间
         LocalTime time = LocalTime.now();
+        System.out.println(time);
 
         LocalDateTime localDateTime = LocalDateTime.of(localDate, time);
         System.out.println(localDateTime.toString());
@@ -138,5 +139,18 @@ public class DateTest {
         LocalDateTime localDate2 = LocalDateTime.parse(date2, mySelfFormatter);
         System.out.println(localDate2);
         System.out.println(localDate2.format(mySelfFormatter));
+    }
+
+    @Test
+    public void function() {
+        // 判断两个时间的大小
+        DateTimeFormatter mySelfFormatter = DateTimeFormatter.ofPattern("HH:mm");
+        LocalTime time1 = LocalTime.parse("22:00", mySelfFormatter);
+        LocalTime time2 = LocalTime.now();
+        System.out.println(time1.compareTo(time2));
+
+        // 判断星期几
+        DateTimeFormatter mySelfFormatter1 = DateTimeFormatter.ofPattern("EEEE");
+        System.out.println(LocalDate.now().format(mySelfFormatter1));
     }
 }

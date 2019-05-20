@@ -1,26 +1,23 @@
-import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.LinkedHashMultimap;
-import com.google.common.collect.Multimap;
+import com.google.common.collect.*;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 
 /**
  * Description
  * Date 2019/3/5 15:07
  */
+@Slf4j
 public class Test01 {
     @Test
     public void test01() {
@@ -140,5 +137,42 @@ public class Test01 {
         String tsString = ts.toString().substring(0, 19);
         String tsDate = ts.toString().substring(0, 10);
         System.out.println(tsDate);
+
+
+        try {
+            int i = 1/0;
+        } catch (Exception e) {
+            log.error("ss : ", e);
+            System.out.println("null");
+        }
     }
+
+    /**
+     * 统计列表中单词的个数
+     */
+    @Test
+    public void test11() {
+        int nums[] = {1,2,3,2,2,1,5,6,6,5};
+        Map<Integer, Integer> map = Maps.newHashMap();
+        Arrays.stream(nums).forEach((x) -> map.merge(x, 1, (count, incre) -> count + incre));
+        System.out.println(map);
+    }
+    /**
+     * 统计列表中单词的个数与Top Ten
+     */
+    @Test
+    public void test12() {
+        List<Integer> list = Lists.newArrayList(1,2,3,2,2,1,5,6,6,5);
+        Map<Integer, Long> freq = Maps.newHashMap();
+        freq = list.stream().collect(groupingBy(Integer::intValue, counting()));
+        System.out.println(freq);
+
+        // Top 10
+        List<Integer> topTen = freq.keySet().stream()
+                .sorted(Comparator.comparing(freq::get).reversed())
+                .limit(10)
+                .collect(Collectors.toList());
+        System.out.println(topTen);
+    }
+
 }
