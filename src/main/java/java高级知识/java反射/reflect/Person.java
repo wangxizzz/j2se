@@ -2,7 +2,7 @@ package java高级知识.java反射.reflect;
 
 import java.io.Serializable;
 
-public class Person implements Serializable,TestInterface{
+public class Person implements Serializable{
 	private Long id;
 	public String name;
 
