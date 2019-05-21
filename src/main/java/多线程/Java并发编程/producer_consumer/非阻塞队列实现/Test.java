@@ -55,9 +55,11 @@ public class Test {
         private void consume() {
             while (true) {
                 synchronized (queue) {
-                    while (queue.size() == 0) {
+                    // while循环防止虚假唤醒，不能用if
+                    while (queue.size() <= 0) {
                         try {
                             System.out.println("队列空，等待数据");
+                            // 在调用notify(),阻塞线程会在这里苏醒，然后继续while循环，
                             queue.wait();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
