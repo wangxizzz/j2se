@@ -145,6 +145,18 @@ public class Test01 {
             log.error("ss : ", e);
             System.out.println("null");
         }
+        // 抛出受检异常，程序可以恢复，没有gg
+        System.out.println("抛出异常的后的语句...");
+
+        Queue<Integer> q = new LinkedList<>();
+        q.offer(1);
+        System.out.println(q.poll());
+        System.out.println(q.poll());
+
+        Stack<Integer> s = new Stack<>();
+        s.push(1);
+        System.out.println(s.pop());
+        System.out.println(s.pop());
     }
 
     /**

@@ -4,34 +4,33 @@ import java.util.PriorityQueue;
 
 /**
  * @Author:王喜
- * @Description :使用Object.wait()和Object.notify()、非阻塞队列实现生产者-消费者模式：
- *                  会交替打印生产与消费信息
+ * @Description : 与Test的区别：不会交替打印，这与wait,notify的释放锁有关，可看下面代码注释
  * @Date: 2018/4/20 0020 13:20
  */
-public class Test {
+public class Test1 {
 
     private int queueSize = 5;
     private PriorityQueue<Integer> queue = new PriorityQueue<>(queueSize);
 
     public static void main(String[] args) {
-        Test test = new Test();
+        Test1 test = new Test1();
         Producer producer = test.new Producer();
         Consumer consumer = test.new Consumer();
         producer.start();
         consumer.start();
     }
 
-    class Producer extends Thread{
+    class Producer extends Thread {
         @Override
         public void run() {
             produce();
         }
 
         private void produce() {
-            while (true) {
-                // 在synchronized代码块执行完，就会释放锁，或者调用wait()释放锁，
-                // notify()并不释放锁。
-                synchronized (queue) {
+            // 在synchronized代码块执行完，就会释放锁，或者调用wait()释放锁，
+            // notify()并不释放锁。
+            synchronized (queue) {
+                while (true) {
                     System.out.println("生产端获得锁");
                     while (queue.size() == queueSize) {
                         try {
@@ -50,11 +49,11 @@ public class Test {
                     queue.offer(1);
                     //插入元素成功，唤醒取元素线程
                     queue.notify();
-                    System.out.println("向队列插入一个元素，队列剩余空间："+
-                            (queueSize-queue.size()));
+                    System.out.println("向队列插入一个元素，队列剩余空间：" +
+                            (queueSize - queue.size()));
                 }
-                System.out.println("生产端释放锁");
             }
+
         }
     }
     class Consumer extends Thread{
@@ -63,8 +62,8 @@ public class Test {
             consume();
         }
         private void consume() {
-            while (true) {
-                synchronized (queue) {
+            synchronized (queue) {
+                while (true) {
                     System.out.println("消费端获得锁");
                     // while循环防止虚假唤醒，不能用if
                     while (queue.size() <= 0) {
@@ -89,7 +88,6 @@ public class Test {
                     System.out.println("从队列取走一个元素，队列剩余"+
                             queue.size()+"个元素");
                 }
-                System.out.println("消费端释放锁");
             }
         }
     }
