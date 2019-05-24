@@ -187,4 +187,18 @@ public class Test01 {
         System.out.println(topTen);
     }
 
+    /**
+     * list视图与数组的clone
+     */
+    @Test
+    public void test13() {
+        List<Integer> list = Lists.newArrayList(1,2,3,4);
+        list.subList(0,3).set(0, 100);
+        System.out.println(list);
+
+        int[] a = {1,2,3};
+        int[] b = a.clone();
+        b[0] = 1000; // 数组是深度clone
+        System.out.println(Arrays.toString(a));
+    }
 }
