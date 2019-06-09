@@ -121,11 +121,12 @@ public class Test01 {
 
     @Test
     public void test09() {
-        int a = -123;
-        System.out.println(a % 10);
-        System.out.println("9223372036854775808".length());
-        System.out.println(Long.MAX_VALUE + "");
-        String s = "";
+        System.out.println(1 << 30);
+        System.out.println((1 << 31) - 1);
+        System.out.println(Integer.MAX_VALUE);
+        System.out.println(-1 << 31);
+
+        System.out.println('c' - 1);
     }
 
     /**
@@ -201,4 +202,5 @@ public class Test01 {
         b[0] = 1000; // 数组是深度clone
         System.out.println(Arrays.toString(a));
     }
+
 }
