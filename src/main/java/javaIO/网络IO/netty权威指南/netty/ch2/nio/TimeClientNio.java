@@ -40,6 +40,7 @@ public class TimeClientNio {
 
     public void start(){
         try{
+            // 连接服务器端
             doConnect();
         }catch (Exception e){
             e.printStackTrace();
@@ -97,7 +98,7 @@ public class TimeClientNio {
                     byteBuffer.get(bytes);
 
                     System.out.println("client received:"+ new String(bytes,"UTF-8"));
-                    stop = true;
+                   // stop = true;
                 }else if(byteLength<0){
                     key.cancel();
                     socketChannel.close();

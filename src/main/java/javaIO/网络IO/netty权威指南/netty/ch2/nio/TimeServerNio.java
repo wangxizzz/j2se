@@ -52,12 +52,14 @@ public class TimeServerNio {
                 // select()方法返回的值表示有多少个 Channel 可操作.
                 // 此方法会一直阻塞当前Thread直到至少一个channel准备好或者设置超时时间或被interrupted.
                 // 通过调用 select 方法, 阻塞地等待 channel I/O 可操作
-                selector.select();
+                int select = selector.select();
+                System.out.println("select = " + select);
                 // 获取 I/O 操作就绪的 SelectionKey, 通过 SelectionKey 可以知道哪些 Channel 的哪类 I/O 操作已经就绪.
                 Set<SelectionKey> selectionKeySet = selector.selectedKeys();
                 Iterator<SelectionKey>  iterator = selectionKeySet.iterator();
                 while(iterator.hasNext()){
                     key = iterator.next();
+                    System.out.println("key就绪的事件：" +key.readyOps());
                     // 当获取一个 SelectionKey 后, 就要将它删除, 表示我们已经对这个 IO 事件进行了处理.
                     iterator.remove();
                     try{
@@ -95,9 +97,10 @@ public class TimeServerNio {
                 // 注意, 在 OP_ACCEPT 事件中, 从 key.channel() 返回的 Channel 是 ServerSocketChannel.
                 // 而在 OP_WRITE 和 OP_READ 中, 从 key.channel() 返回的是 SocketChannel.
                 ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
-                // 接收一个客户端连接SocketChannel
+                // 接收一个客户端连接SocketChannel(相当于建立一个连接)
                 SocketChannel clientChannel  = ssc.accept();
                 clientChannel.configureBlocking(false);
+                System.out.println("建立了一个客户端连接");
                 //在 OP_ACCEPT 到来时, 再将这个 Channel 的 OP_READ 注册到 Selector 中.
                 // 注意, 这里我们如果没有设置 OP_READ 的话, 即 interest set 仍然是 OP_CONNECT 的话, 那么 select 方法会一直直接返回.
                 clientChannel.register(selector,SelectionKey.OP_READ);

@@ -53,7 +53,8 @@ public class MyReflect {
 	@Test
 	public void getPublicConstructor() throws Exception {
 		//Long.class,String.class 表示参数的类型 
-//		Constructor constructor2 = Person.class.getConstructor(Long.class,String.class);
+		Constructor constructor2 = Person.class.getConstructor();
+        System.out.println(((Person)constructor2.newInstance()).getId());
 		Constructor  constructor  = personClass.getConstructor(Long.class,String.class);
 		//利用构造函数来创建对象
 		Person person = (Person)constructor.newInstance(100L,"zhangsan");
