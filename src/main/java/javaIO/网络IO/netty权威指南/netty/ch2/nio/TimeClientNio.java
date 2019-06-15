@@ -57,7 +57,6 @@ public class TimeClientNio {
                     key = iterator.next();
                     iterator.remove();
                     try {
-                        System.out.println(key.toString());
                         handleInput(key);
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -109,6 +108,7 @@ public class TimeClientNio {
     }
 
     private void doConnect() throws IOException {
+        // 如果连接已经建立好了
         if(socketChannel.connect(new InetSocketAddress(host,port))){
             socketChannel.register(selector,SelectionKey.OP_READ);
             doWrite(socketChannel);

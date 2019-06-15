@@ -53,13 +53,11 @@ public class TimeServerNio {
                 // 此方法会一直阻塞当前Thread直到至少一个channel准备好或者设置超时时间或被interrupted.
                 // 通过调用 select 方法, 阻塞地等待 channel I/O 可操作
                 int select = selector.select();
-                System.out.println("select = " + select);
                 // 获取 I/O 操作就绪的 SelectionKey, 通过 SelectionKey 可以知道哪些 Channel 的哪类 I/O 操作已经就绪.
                 Set<SelectionKey> selectionKeySet = selector.selectedKeys();
                 Iterator<SelectionKey>  iterator = selectionKeySet.iterator();
                 while(iterator.hasNext()){
                     key = iterator.next();
-                    System.out.println("key就绪的事件：" +key.readyOps());
                     // 当获取一个 SelectionKey 后, 就要将它删除, 表示我们已经对这个 IO 事件进行了处理.
                     iterator.remove();
                     try{
@@ -88,7 +86,7 @@ public class TimeServerNio {
         }
     }
 
-    private void handleInput(SelectionKey key) throws IOException{
+    private void handleInput(SelectionKey key) throws IOException, InterruptedException {
         // is cancelled, its channel is closed, or its selector is closed
         if(key.isValid()){
             if(key.isAcceptable()){
@@ -100,7 +98,6 @@ public class TimeServerNio {
                 // 接收一个客户端连接SocketChannel(相当于建立一个连接)
                 SocketChannel clientChannel  = ssc.accept();
                 clientChannel.configureBlocking(false);
-                System.out.println("建立了一个客户端连接");
                 //在 OP_ACCEPT 到来时, 再将这个 Channel 的 OP_READ 注册到 Selector 中.
                 // 注意, 这里我们如果没有设置 OP_READ 的话, 即 interest set 仍然是 OP_CONNECT 的话, 那么 select 方法会一直直接返回.
                 clientChannel.register(selector,SelectionKey.OP_READ);
@@ -117,6 +114,24 @@ public class TimeServerNio {
                     readBuffer.get(bytes);
                     String body = new String(bytes,"UTF-8");
                     System.out.println("the time server receive order:"+body);
+
+                    // 验证经典Reactor模型单线程阻塞问题
+//                    System.out.println("等着....");
+//                    Thread.sleep(20000);
+//                    System.out.println("等待结束...");
+
+                    // 上面同步等待，下面使用异步处理业务逻辑(操作DB,RPC调用)
+                    System.out.println("等着....");
+                    new Thread(() -> {
+                        try {
+                            // 表示业务调用需耗时20s,没返回值。
+                            // 如果需要返回值，那么就可以利用回调CompletableFuture获取返回值，selector线程依旧不阻塞.
+                            Thread.sleep(20000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }).start();
+                    System.out.println("异步快速返回....");
                     doWrite(clientChannel,"the time server receive order:"+body);
                     // 返回-1，链路已关闭，关闭Channel，释放资源
                 }else if(readBytes <0){
