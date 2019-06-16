@@ -115,7 +115,7 @@ public class TimeServerNio {
                     String body = new String(bytes,"UTF-8");
                     System.out.println("the time server receive order:"+body);
 
-                    // 验证经典Reactor模型单线程阻塞问题
+                    // 验证经典和多Reactor模型单线程阻塞问题
 //                    System.out.println("等着....");
 //                    Thread.sleep(20000);
 //                    System.out.println("等待结束...");
