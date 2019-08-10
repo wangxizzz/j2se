@@ -1,10 +1,14 @@
 import com.google.common.collect.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.joda.time.format.DateTimeFormat;
+import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.MessageFormat;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
@@ -203,4 +207,67 @@ public class Test01 {
         System.out.println(Arrays.toString(a));
     }
 
+   // 把毫秒转化为时间戳
+    @Test
+    public void test15() {
+        long time = new Date().getTime();
+        System.out.println(time);
+        DateTimeFormatter ymdhmslinkedfmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
+        final String print = ymdhmslinkedfmt.print(time);
+        System.out.println(print);
+        final Timestamp timestamp = new Timestamp(ymdhmslinkedfmt.parseMillis(print));
+        System.out.println(timestamp);
+
+        System.out.println("==================================");
+
+        // 插入pgsql有时差,采用下面方式写法
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withZoneUTC();
+        String format = formatter.print(time);
+        System.out.println(DateUtil.getPGDetailImeStampFromString(format));
+    }
+
+    @Test
+    public void test14() {
+        long a = 1564209306730L;
+        // 插入pgsql有时差,采用下面方式写法
+        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withZoneUTC();
+        String format = formatter.print(a);
+        System.out.println(DateUtil.getPGDetailImeStampFromString(format));
+
+        System.out.println("asd".split(",").length);
+    }
+
+    @Test
+    public void test16() {
+        Set<String> set1 = new HashSet<String>() {
+            {
+                add("aa");
+                add("bb");
+                add("cc");
+                add("dd");
+            }
+        };
+
+        Set<String> set2 = new HashSet<String>() {
+            {
+                add("aa");
+                add("ss");
+                add("dd");
+            }
+        };
+        // 在set1不在set2中
+        final Sets.SetView<String> difference = Sets.difference(set1, set2);
+        System.out.println(difference);
+    }
+
+    @Test
+    public void test17() {
+        try {
+            int a = 1/0;
+        } catch (Exception e) {
+            log.error("", e);
+            System.out.println("============================");
+            //throw new RuntimeException(e);
+        }
+    }
 }

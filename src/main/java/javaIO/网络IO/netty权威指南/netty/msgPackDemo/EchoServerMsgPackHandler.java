@@ -2,11 +2,12 @@ package javaIO.网络IO.netty权威指南.netty.msgPackDemo;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * Created by wangxi on 09/06/2018.
  */
-public class EchoServerMsgPackHandler extends ChannelHandlerAdapter {
+public class EchoServerMsgPackHandler extends ChannelInboundHandlerAdapter {
 
     int counter = 0;
 

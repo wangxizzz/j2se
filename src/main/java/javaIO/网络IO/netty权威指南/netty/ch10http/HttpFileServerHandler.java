@@ -26,7 +26,7 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
     }
 
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
+    protected void channelRead0(ChannelHandlerContext ctx, FullHttpRequest request) throws Exception {
 
         if (!request.decoderResult().isSuccess()) {
             sendError(ctx, HttpResponseStatus.BAD_REQUEST);
@@ -71,14 +71,14 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
 
         long fileLength = randomAccessFile.length();
         HttpResponse response = new DefaultHttpResponse(HttpVersion.HTTP_1_1, HttpResponseStatus.OK);
-        HttpHeaderUtil.setContentLength(response, fileLength);
+        //HttpHeaderUtil.setContentLength(response, fileLength);
 //        setContentLength(response, fileLength);
         setContentTypeHeader(response, file);
 
 
-        if (HttpHeaderUtil.isKeepAlive(request)) {
-            response.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
-        }
+//        if (HttpHeaderUtil.isKeepAlive(request)) {
+//            response.headers().set(HttpHeaderNames.CONNECTION, HttpHeaderValues.KEEP_ALIVE);
+//        }
 
         ctx.write(response);
         ChannelFuture sendFileFuture = null;
@@ -103,8 +103,8 @@ public class HttpFileServerHandler extends SimpleChannelInboundHandler<FullHttpR
         });
 
         ChannelFuture lastContentFuture = ctx.writeAndFlush(LastHttpContent.EMPTY_LAST_CONTENT);
-        if (!HttpHeaderUtil.isKeepAlive(request))
-            lastContentFuture.addListener(ChannelFutureListener.CLOSE);
+//        if (!HttpHeaderUtil.isKeepAlive(request))
+//            lastContentFuture.addListener(ChannelFutureListener.CLOSE);
 
     }
 

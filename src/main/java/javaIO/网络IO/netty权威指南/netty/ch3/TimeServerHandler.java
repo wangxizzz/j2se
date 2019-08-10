@@ -4,6 +4,7 @@ import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
 import java.util.Date;
 
@@ -11,7 +12,7 @@ import java.util.Date;
  * Created by wangxi on 23/05/2018.
  */
 
-public class TimeServerHandler extends ChannelHandlerAdapter{
+public class TimeServerHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRead(ChannelHandlerContext ctx,Object msg)

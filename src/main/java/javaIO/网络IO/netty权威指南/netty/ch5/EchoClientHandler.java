@@ -3,11 +3,12 @@ package javaIO.网络IO.netty权威指南.netty.ch5;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * Created by wangxi on 09/06/2018.
  */
-public class EchoClientHandler extends ChannelHandlerAdapter {
+public class EchoClientHandler extends ChannelInboundHandlerAdapter {
 
     private  int counter;
 

@@ -198,16 +198,16 @@ public class TestDemo {
         HashSet<Integer> set2 = Sets.newHashSet(2, 4, 5, 6);
         // 求并集
         Sets.SetView<Integer> union = Sets.union(set1, set2);
-        System.out.println(union);
+        //System.out.println(union);
         // 求交集
         Sets.SetView<Integer> intersection = Sets.intersection(set1, set2);
-        System.out.println(intersection);
+        //System.out.println(intersection);
         // 在A不在B中
         Sets.SetView<Integer> difference = Sets.difference(set1, set2);
         System.out.println(difference);
         // 传入的是一个回调方法，然后过滤部分值
         Set<Integer> filter = Sets.filter(set1, (i) -> i > 2);
-        System.out.println(filter);
+        //System.out.println(filter);
     }
 
     /**
