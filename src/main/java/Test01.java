@@ -1,3 +1,6 @@
+import com.google.common.base.CaseFormat;
+import com.google.common.base.CharMatcher;
+import com.google.common.base.Splitter;
 import com.google.common.collect.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -112,15 +115,21 @@ public class Test01 {
     public void test08() {
         //String config1 = "-1:23434880,214324956:143440,1774384:1440,204:48430,24323243440";  // toMap的value为空，会报空指针
 
-        String config = "-1:23434880,214324956:143440,1774384:1440,204:48430,204:4,24323:243440";
+        String config = "-1:23,-1:23,214:143,177:1440,204:48430,204:4,24323:243440,24323:243441";
         /**
          * * @param mergeFunction a merge function, used to resolve collisions between
          *      *                      values associated with the same key, as supplied
          *      *                      to {@link Map#merge(Object, Object, BiFunction)}
          */
-        Map<Integer, Integer> map = Arrays.stream(StringUtils.split(config, ",")).map(v -> StringUtils.split(v, ":"))
-                .collect(Collectors.toMap(v -> Integer.valueOf(v[0]), v -> Integer.valueOf(v[1]), (o1, o2) -> o1, LinkedHashMap::new));
+        Map<Integer, Integer> map = Arrays.stream(StringUtils.split(config, ","))
+                .map(v -> StringUtils.split(v, ":"))
+                .collect(Collectors.toMap(x -> Integer.valueOf(x[0]), y -> Integer.valueOf(y[1]), (o1, o2) -> o1, LinkedHashMap::new));
         System.out.println(map);
+
+        System.out.println("======================");
+        // 分割为Map<Integer, List<Integer>> 类型
+        // 建议使用Multimap
+
     }
 
     @Test
@@ -213,7 +222,7 @@ public class Test01 {
         long time = new Date().getTime();
         System.out.println(time);
         DateTimeFormatter ymdhmslinkedfmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-        final String print = ymdhmslinkedfmt.print(time);
+        final String print = ymdhmslinkedfmt.print(1568649600000L);
         System.out.println(print);
         final Timestamp timestamp = new Timestamp(ymdhmslinkedfmt.parseMillis(print));
         System.out.println(timestamp);
@@ -262,12 +271,28 @@ public class Test01 {
 
     @Test
     public void test17() {
-        try {
-            int a = 1/0;
-        } catch (Exception e) {
-            log.error("", e);
-            System.out.println("============================");
-            //throw new RuntimeException(e);
+        Date date = DateUtil.convertDate("yyyy-MM-dd HH:mm:ss", "2019-09-17 00:00:00");
+        System.out.println(Long.compare(1568649600000L, date.getTime()));
+        System.out.println(date);
+        System.out.println(date.getTime());
+    }
+
+    /**
+     * 去除字符串的空格与多余的引号
+     */
+    @Test
+    public void test18() {
+        Map<String, Integer> soldCountWithDay = Maps.newHashMap();
+        String realSoldCountByDays = "\"7\"=>\"3\", \"15\"=>\"3\", \"30\"=>\"3\", \"75\"=>\"8\", \"90\"=>\"8\", \"180\"=>\"16\", \"365\"=>\"16\"";
+        List<String> parts = Splitter.on(",").trimResults().splitToList(realSoldCountByDays);
+        for (String p : parts) {
+            List<String> dayAndCount = Splitter.on("=>").trimResults().trimResults(CharMatcher.is('"')).splitToList(p);
+            if (dayAndCount.size() < 2) {
+                soldCountWithDay.put(dayAndCount.get(0), 0);
+            } else {
+                soldCountWithDay.put(dayAndCount.get(0), Integer.parseInt(dayAndCount.get(1)));
+            }
         }
+        System.out.println(soldCountWithDay);
     }
 }

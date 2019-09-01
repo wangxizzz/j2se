@@ -198,7 +198,7 @@ public class DateUtil {
         }
         try {
             dateValue = dateValue.trim();
-            return DateTimeFormat.forPattern(formatString).withZoneUTC().parseDateTime(dateValue).toDate();
+            return DateTimeFormat.forPattern(formatString).parseDateTime(dateValue).toDate();
         } catch (Exception e) {
             logger.error("parse date error", e);
             return null;
