@@ -107,11 +107,6 @@ public class Test01 {
     }
 
     @Test
-    public void test07() {
-
-    }
-
-    @Test
     public void test08() {
         //String config1 = "-1:23434880,214324956:143440,1774384:1440,204:48430,24323243440";  // toMap的value为空，会报空指针
 
@@ -214,25 +209,6 @@ public class Test01 {
         int[] b = a.clone();
         b[0] = 1000; // 数组是深度clone
         System.out.println(Arrays.toString(a));
-    }
-
-   // 把毫秒转化为时间戳
-    @Test
-    public void test15() {
-        long time = new Date().getTime();
-        System.out.println(time);
-        DateTimeFormatter ymdhmslinkedfmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-        final String print = ymdhmslinkedfmt.print(1568649600000L);
-        System.out.println(print);
-        final Timestamp timestamp = new Timestamp(ymdhmslinkedfmt.parseMillis(print));
-        System.out.println(timestamp);
-
-        System.out.println("==================================");
-
-        // 插入pgsql有时差,采用下面方式写法
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withZoneUTC();
-        String format = formatter.print(time);
-        System.out.println(DateUtil.getPGDetailImeStampFromString(format));
     }
 
     @Test
