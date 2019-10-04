@@ -94,7 +94,7 @@ public class Test02 {
     }
 
     /**
-     * 测试map.computeIfAbsent
+     * 测试map.computeIfAbsent 与 JDK版的MultiMap
      */
     @Test
     public void test07() {
@@ -106,5 +106,11 @@ public class Test02 {
         System.out.println(map);
         System.out.println(a);
         System.out.println(b);
+
+        Map<String, List<Integer>> map2 = new HashMap<>();
+        map2.computeIfAbsent("1", k -> new ArrayList<>()).add(1);
+        map2.computeIfAbsent("1", k -> new ArrayList<>()).add(1);
+        System.out.println(map2);
+        System.out.println(map2.get("1").getClass());
     }
 }
