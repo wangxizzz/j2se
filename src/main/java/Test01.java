@@ -9,6 +9,7 @@ import org.joda.time.format.DateTimeFormatter;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
 import java.text.MessageFormat;
 import java.text.SimpleDateFormat;
@@ -89,12 +90,17 @@ public class Test01 {
         System.out.println(list);
     }
 
+    /**
+     * BigDecimal测试
+     * https://blog.csdn.net/oChangWen/article/details/51531866
+     */
     @Test
     public void test05() {
-        BigDecimal a = new BigDecimal(100.00);
-        BigDecimal b = new BigDecimal(300.00);
+        BigDecimal a = new BigDecimal(100);
+        BigDecimal b = new BigDecimal(301);
         BigDecimal c = a.add(b);
         System.out.println(c);
+        System.out.println(c.divide(new BigDecimal(2), 1, RoundingMode.CEILING));
         System.out.println(c.compareTo(new BigDecimal(4001)));
     }
 
@@ -108,7 +114,7 @@ public class Test01 {
 
     @Test
     public void test07() {
-
+        System.out.println(DateUtil.formatDate(DateUtil.addDay(new Date(), -2)));
     }
 
     @Test
@@ -295,4 +301,49 @@ public class Test01 {
         }
         System.out.println(soldCountWithDay);
     }
+
+    /**
+     * 对Multimap的value进行排序
+     */
+    @Test
+    public void test19() {
+        System.out.println((BigDecimal)null);
+
+        ArrayListMultimap<String, String> multimap = ArrayListMultimap.create();
+        multimap.put("1", "2019-09-23");
+        multimap.put("1", "2019-08-24");
+        multimap.put("1", "2019-11-24");
+        multimap.put("1", "2019-10-01");
+        multimap.put("2", "2019-09-23");
+        multimap.put("2", "2019-08-24");
+        multimap.put("2", "2019-11-24");
+        multimap.put("2", "2019-10-01");
+        Collections.sort(multimap.get("1"), (o1, o2) -> o1.compareTo(o2));
+        Collections.sort(multimap.get("2"), (o1, o2) -> o1.compareTo(o2));
+        System.out.println(multimap);
+
+    }
+
+    @Test
+    public void test20() {
+        List<Integer> list = new ArrayList<>();
+        list.add(3);
+        list.add(1);
+        list.add(2);
+        list.add(30);
+        Collections.sort(list, (x, y) -> Integer.compare(x.intValue(), y.intValue()));
+        System.out.println(list);
+
+        System.out.println(list.stream().filter(x -> x > 10).collect(Collectors.toList()));
+    }
+
+    @Test
+    public void test21() {
+        List<Integer> list = new ArrayList<>();
+        list.forEach((x) -> {
+            System.out.println("---");
+        });
+    }
+
+
 }
