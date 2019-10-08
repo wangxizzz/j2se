@@ -305,6 +305,9 @@ public class Test01 {
 
     }
 
+    /**
+     * 对List排序只能用这种方式
+     */
     @Test
     public void test20() {
         List<Integer> list = new ArrayList<>();
@@ -318,12 +321,22 @@ public class Test01 {
         System.out.println(list.stream().filter(x -> x > 10).collect(Collectors.toList()));
     }
 
+    /**
+     * 解决List遍历的NPE
+     * 1. mybatis 返回的List一定是new ArrayList<>(),不管有没有查到数据
+     * 2. Splitter.on(",").splitToList 返回的是java.util.Collections$UnmodifiableRandomAccessList
+     */
     @Test
     public void test21() {
         List<Integer> list = new ArrayList<>();
         list.forEach((x) -> {
             System.out.println("---");
         });
+
+        String s = "";
+        List<String> strings = Splitter.on(",").splitToList(s);
+        System.out.println(strings.getClass().getName());
+        //System.out.println(strings.set(0, "22"));
     }
 
 
