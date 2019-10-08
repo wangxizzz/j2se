@@ -1,3 +1,5 @@
+package java高级知识.枚举;
+
 /**
  * Created by wxi.wang
  * <p>

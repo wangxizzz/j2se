@@ -222,25 +222,6 @@ public class Test01 {
         System.out.println(Arrays.toString(a));
     }
 
-   // 把毫秒转化为时间戳
-    @Test
-    public void test15() {
-        long time = new Date().getTime();
-        System.out.println(time);
-        DateTimeFormatter ymdhmslinkedfmt = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss");
-        final String print = ymdhmslinkedfmt.print(1568649600000L);
-        System.out.println(print);
-        final Timestamp timestamp = new Timestamp(ymdhmslinkedfmt.parseMillis(print));
-        System.out.println(timestamp);
-
-        System.out.println("==================================");
-
-        // 插入pgsql有时差,采用下面方式写法
-        DateTimeFormatter formatter = DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss").withZoneUTC();
-        String format = formatter.print(time);
-        System.out.println(DateUtil.getPGDetailImeStampFromString(format));
-    }
-
     @Test
     public void test14() {
         long a = 1564209306730L;

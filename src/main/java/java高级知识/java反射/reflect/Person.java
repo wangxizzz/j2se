@@ -12,19 +12,16 @@ public class Person implements Serializable{
 	}
 
 	public Person(Long id, String name) {
-//		super();
 		this.id = id;
 		this.name = name;
 	}
 	
 	
 	public Person(Long id) {
-		super();
 		this.id = id;
 	}
 	@SuppressWarnings("unused")
 	private Person(String name) {
-		super();
 		this.name = name+"=======";
 	}
 
