@@ -3,7 +3,7 @@ package 测试demos;
 import org.junit.Test;
 
 
-public class Demo01 {
+public class Test03 {
     /**
      * 测试字符串切割,利用-分割
      */

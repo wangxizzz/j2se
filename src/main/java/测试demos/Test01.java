@@ -1,4 +1,5 @@
-import com.google.common.base.CaseFormat;
+package 测试demos;
+
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Splitter;
 import com.google.common.collect.*;
@@ -11,12 +12,8 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.sql.Timestamp;
-import java.text.MessageFormat;
-import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.counting;
 import static java.util.stream.Collectors.groupingBy;
