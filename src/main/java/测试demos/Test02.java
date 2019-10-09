@@ -30,16 +30,6 @@ public class Test02 {
     }
 
     @Test
-    public void test02() {
-        AtomicLong atomicLong = new AtomicLong(1);
-        atomicLong.getAndIncrement();
-        atomicLong.getAndIncrement();
-//        atomicLong.addAndGet(10);
-        atomicLong.incrementAndGet();
-        System.out.println(atomicLong.get());
-    }
-
-    @Test
     public void test03() {   // 240
         LocalDate localDate = LocalDate.now();
         System.out.println(localDate.toString());
@@ -64,6 +54,11 @@ public class Test02 {
 
     /**
      * 使用StringUtils.split切分字符串，会自动去掉空格
+     * 切分字符串使用StringUtils.split， 避免转义的问题
+     * 需要转移的有：
+     * (    [     {    /    ^    -    $     |    }    ]    )    ?    *    +    .
+     *
+     * String.contains()方法是不需要转义的
      */
     @Test
     public void test05() {
@@ -74,6 +69,15 @@ public class Test02 {
         String s = "I am   1  ";
         System.out.println(Arrays.toString(s.split(" ")));
         System.out.println(StringUtils.split(s).length);
+        System.out.println("===========================");
+        String s2 = "12345|2019-09-23";
+        System.out.println(s2.split("|")[0]);   // 错误的切分方式
+        /**
+         * 正确的切分方式1 (不需要人工转义)
+         */
+        System.out.println(StringUtils.split(s2, "|")[0]);
+        // 切分方式2 (需要人工转义)
+        System.out.println(s2.split("\\|")[0]);
     }
 
     @Test
