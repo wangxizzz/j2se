@@ -18,7 +18,7 @@ public class CSTest {
     public static void consumerSuper(List<? super SmallDog> dogs) {
         dogs.add(new SmallDog());
 
-//        dogs.add(new Dog());         //编译错
+        //dogs.add(new Dog());         //编译错
         //SmallDog dog1 = dogs.get(0);       //编译错
         /**
          * 为什么add(new Dog())编译错？
