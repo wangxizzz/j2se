@@ -112,4 +112,15 @@ public class Test02 {
         System.out.println(map2);
         System.out.println(map2.get("1").getClass());
     }
+
+    /**
+     * 四舍五入
+     */
+    @Test
+    public void test08() {
+        long round1 = Math.round(2.5);
+        System.out.println(round1);
+        long round2 = Math.round(2.4);
+        System.out.println(round2);
+    }
 }
