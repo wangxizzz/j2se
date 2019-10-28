@@ -16,7 +16,7 @@ import java.util.stream.IntStream;
  * https://segmentfault.com/a/1190000012620152
  * https://juejin.im/post/5cc5aa7ce51d456e431adac5
  */
-public class BloomFliterTest01 {
+public class BloomFilterTest01 {
     @Test
     public void test01() {
         BloomFilter<Integer> filter = BloomFilter.create(
