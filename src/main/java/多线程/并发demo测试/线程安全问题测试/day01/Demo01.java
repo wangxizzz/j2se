@@ -9,28 +9,28 @@ import java.util.concurrent.atomic.AtomicInteger;
  * @author wangxi
  */
 public class Demo01 {
-    private volatile Integer count = 0;
+    private Integer count = 0;
 
     private AtomicInteger num = new AtomicInteger(0);  // 这样可以获取到10000
 
     private void fun() {
         for (int i = 0; i < 10000; i++) {
             Thread thread = new Thread(() -> {
-                // 这样写法仍然不能count原子性
-//                synchronized (count) {
-//                    count++;
-//                }
+                // 这样写法可以保证原子性可见性，因此不用加volatile(加volatile反而不行)
+                synchronized (count) {
+                    count++;
+                }
                 num.getAndIncrement();
             });
             thread.start();
         }
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        //System.out.println(count);
-        System.out.println(num);
+        System.out.println(count);
+        //System.out.println(num);
     }
 
     public static void main(String[] args) {
