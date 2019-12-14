@@ -123,4 +123,13 @@ public class Test02 {
         long round2 = Math.round(2.4);
         System.out.println(round2);
     }
+
+    @Test
+    public void test09() {
+        Set<Integer> set = new HashSet<>();
+        System.out.println(set.add(1));
+        // 本质插入进去了
+        System.out.println(set.add(1));
+        System.out.println(set);
+    }
 }
