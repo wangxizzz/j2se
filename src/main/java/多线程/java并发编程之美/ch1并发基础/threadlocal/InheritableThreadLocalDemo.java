@@ -1,4 +1,4 @@
-package 多线程.java并发编程之美.chapter1.threadlocal;
+package 多线程.java并发编程之美.ch1并发基础.threadlocal;
 
 /**
  * @ClassName InheritableThreadLocalDemo

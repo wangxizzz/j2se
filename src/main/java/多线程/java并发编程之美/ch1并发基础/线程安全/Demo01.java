@@ -1,4 +1,4 @@
-package 多线程.java并发编程之美.chapter1.监视器锁;
+package 多线程.java并发编程之美.ch1并发基础.线程安全;
 
 import lombok.extern.slf4j.Slf4j;
 
