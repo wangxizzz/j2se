@@ -27,6 +27,8 @@ public class ProviderConsumer {
                         queue.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                        // 注意：这里需要唤醒，否则会造成死锁
+                        queue.notify();
                     }
                 }
                 queue.add(new Random().nextInt(100));
@@ -47,6 +49,7 @@ public class ProviderConsumer {
                         queue.wait();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
+                        queue.notify();
                     }
                 }
                 queue.poll();
