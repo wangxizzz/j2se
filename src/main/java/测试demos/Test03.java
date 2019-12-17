@@ -2,6 +2,8 @@ package 测试demos;
 
 import org.junit.Test;
 
+import java.util.BitSet;
+
 
 public class Test03 {
     /**
@@ -34,9 +36,19 @@ public class Test03 {
         System.out.println(result);
     }
 
+    /**
+     * 测试位图
+     */
     @Test
     public void test03() {
-        String s = "  s  ";
-        System.out.println(s.split(" ").length);
+        BitSet bitSet = new BitSet();
+        bitSet.set(1);
+        bitSet.set(65);
+        System.out.println(bitSet.get(1));
+        System.out.println(bitSet.get(3));
+
+        System.out.println(1L << 65);
+
+        System.out.println(1 << 32);
     }
 }
