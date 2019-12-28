@@ -50,5 +50,7 @@ public class Test03 {
         System.out.println(1L << 65);
 
         System.out.println(1 << 32);
+
+        System.out.println(Runtime.getRuntime().availableProcessors());
     }
 }
