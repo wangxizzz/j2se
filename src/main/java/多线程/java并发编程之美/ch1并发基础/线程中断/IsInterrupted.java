@@ -11,6 +11,10 @@ public class IsInterrupted {
         Thread threadOne = new Thread(() -> {
             for (;;) {
                 // 在这里可以调用interrupted()，重置threadOne线程的中断标志
+                if (Thread.interrupted()) {
+                    System.out.println("threadOne exit.");
+                    break;
+                }
             }
         });
         threadOne.start();
