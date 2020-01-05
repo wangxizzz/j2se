@@ -20,5 +20,7 @@ public class LockSupport01 {
         System.out.println("main thread begin unpark");
         // 需要传入被挂起线程 作为参数
         LockSupport.unpark(thread);
+
+        System.out.println(LockSupport01.class.getClassLoader());
     }
 }
