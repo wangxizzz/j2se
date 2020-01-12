@@ -15,12 +15,12 @@ public class Provider1 {
             try {
                 Thread.sleep(10000);
                 user = new User(1, "Provider1");
-                throw new RuntimeException();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             return user;
         }, service);
+        service.shutdown();
         return userCompletableFuture;
     }
 }

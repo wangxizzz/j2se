@@ -4,24 +4,22 @@ import java.util.concurrent.locks.LockSupport;
 
 /**
  * @Author wangxi
- * @Time 2019/12/29 00:00
+ * @Time 2020/1/12 22:58
  *
- * 测试线程挂起 LockSupport.park()挂起线程与unpark()
+ * 测试LockSupport API  测试park超时
  */
-public class LockSupport01 {
-    // 一个main方法是对应一个JVM进程的
+public class LockSupport02 {
     public static void main(String[] args) throws InterruptedException {
         Thread thread = new Thread(() -> {
             System.out.println("thread begin park.");
-            LockSupport.park();
+            // 超过 0.1s，自己返回
+            LockSupport.parkNanos(100000000L);
             System.out.println("thread unparking");
         });
         thread.start();
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         System.out.println("main thread begin unpark");
         // 需要传入被挂起线程 作为参数
         LockSupport.unpark(thread);
-
-        System.out.println(LockSupport01.class.getClassLoader());
     }
 }
