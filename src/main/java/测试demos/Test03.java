@@ -1,5 +1,7 @@
 package 测试demos;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.junit.Test;
 
 import java.util.BitSet;
@@ -52,5 +54,24 @@ public class Test03 {
         System.out.println(1 << 32);
 
         System.out.println(Runtime.getRuntime().availableProcessors());
+    }
+
+    /**
+     * new ArrayList<>(list) 是创建一个新的对象
+     */
+    @Test
+    public void test04() {
+        List<Integer> list = new ArrayList<>();
+        list.add(2);
+        list.add(1);
+        list.add(3);
+
+        List<Integer> list1 = new ArrayList<>(list);
+        list1.set(0, 100);
+        System.out.println(list);
+
+        System.out.println(list1);
+
+
     }
 }
