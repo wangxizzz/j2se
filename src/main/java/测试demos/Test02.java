@@ -1,6 +1,7 @@
 package 测试demos;
 
 import com.google.common.collect.Maps;
+import io.netty.handler.codec.http.HttpScheme;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -131,5 +132,7 @@ public class Test02 {
         // 本质插入进去了
         System.out.println(set.add(1));
         System.out.println(set);
+
+        System.out.println(HttpScheme.HTTPS.name().toString());
     }
 }
