@@ -19,7 +19,10 @@ public class Test {
          * 第二个参数：people.getClass().getInterfaces()，这里为代理类提供的接口是真实对象实现的接口，这样代理对象就能像真实对象一样调用接口中的所有方法
          * 第三个参数：handler，我们将代理对象关联到上面的InvocationHandler对象上
          */
-        People proxy = (People) Proxy.newProxyInstance(handler.getClass().getClassLoader(), people.getClass().getInterfaces(), handler);
+
+
+        People proxy = (People) Proxy.newProxyInstance(People.class.getClassLoader(), new Class[] { People.class }, handler);
+//        People proxy = (People) Proxy.newProxyInstance(handler.getClass().getClassLoader(), people.getClass().getInterfaces(), handler);
         proxy.work();
     }
 }
