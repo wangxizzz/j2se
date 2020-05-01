@@ -54,13 +54,19 @@ public class SlidingWindowRateLimiter implements Runnable{
         System.out.println(currentQPS());
         System.out.println("index:" + index);
         index = (index + 1) % block;
-        // 初始化下一个小窗口的计数器
+        // 下一行代码是为了模拟窗口整体滑动时所接受的流量。
+        // 注意：整个窗口的滑动是总体时间1s，并不是单个格子的时间，意思是说过了第1s，窗口才会整体往右滑动一格。
+        // 如果整体窗口以每一格的时间向前滑动，那么在1s末2s初时，整个窗口已经位于2.1s~3.0s之间了，仍然无法处理临界问题
         long val = countPerBlock[index].getAndSet(0);
         // 使用是个计数器来模拟每个窗口的计数器之和
         count.addAndGet(-val);
     }
 
     public static void main(String[] args) {
+        /**
+         * 注意：如果限制qps是100，划分10格，那么每一格的时间是1000ms/10=0.1s。
+         * 每一格接收的请求总量是：100/10=10
+         */
         SlidingWindowRateLimiter slidingWindowRateLimiter = new SlidingWindowRateLimiter(10, 1000);
         ScheduledExecutorService scheduledExecutorService = Executors.newSingleThreadScheduledExecutor();
         scheduledExecutorService.scheduleAtFixedRate(slidingWindowRateLimiter, 100, 100, TimeUnit.MILLISECONDS);
