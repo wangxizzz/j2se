@@ -27,9 +27,10 @@ public class A {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         SubA subA = new A().new SubA();
         subA.a1();
+        Thread.sleep(1000000);
     }
 }
 
