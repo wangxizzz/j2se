@@ -11,6 +11,7 @@ import com.google.common.cache.Weigher;
 import com.google.common.collect.Lists;
 import org.junit.Test;
 
+import java.util.Map;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -49,6 +50,21 @@ public class Demo01 {
                     public String load(Integer key) throws Exception {
                         return "key-" + key;
                     }
+
+                    @Override
+                    public Map<Integer, String> loadAll(Iterable<? extends Integer> keys) throws Exception {
+                        /**
+                         * removalListener：当缓存被移除的时候执行的策略，例如打日志等
+                         * build参数CacheLoader：用于refresh时load缓存的策略，根据具体业务而定，
+                         * 建议在实现load方法的同时实现loadAll方法loadAll方法适用于批量查缓存的需求，
+                         * 或者刷新缓存涉及到网络交互等耗时操作。比如你的缓存数据需要从redis里获取，
+                         * 如果不实现loadAll，则需要多次load操作，也就需要多次redis交互，非常耗时，
+                         * 而实现loadAll，则可以在loadAll里向redis发送一条批量请求，显著降低网络交互次数和时间，
+                         * 显著提升效率
+                         *
+                         */
+                        return super.loadAll(keys);
+                    }
                 }
         );
         cache.put(1, "a");
@@ -76,6 +92,7 @@ public class Demo01 {
                 return "hello world";
             });
             System.out.println(value);
+            System.out.println(cache.getIfPresent(2));
         } catch (ExecutionException e) {
             e.printStackTrace();
         }
@@ -146,7 +163,7 @@ public class Demo01 {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        cache.getIfPresent(1);
+        //cache.getIfPresent(1);
         System.out.println(cache.asMap());
         try {
             Thread.sleep(2000);
@@ -220,7 +237,6 @@ public class Demo01 {
     public void test10() {
         LoadingCache<Integer, Integer> cache = CacheBuilder.newBuilder()
                 .expireAfterWrite(3, TimeUnit.SECONDS)
-
                 .removalListener(RemovalListeners.asynchronous(new RemovalListener<Object, Object>() {
                     // 当缓存被移除时执行
                     @Override

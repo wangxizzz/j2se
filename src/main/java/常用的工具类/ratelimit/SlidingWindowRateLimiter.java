@@ -53,6 +53,7 @@ public class SlidingWindowRateLimiter implements Runnable{
         System.out.println(isOverLimit());
         System.out.println(currentQPS());
         System.out.println("index:" + index);
+        // 环形队列的设计
         index = (index + 1) % block;
         // 下一行代码是为了模拟窗口整体滑动时所接受的流量。
         // 注意：整个窗口的滑动是总体时间1s，并不是单个格子的时间，意思是说过了第1s，窗口才会整体往右滑动一格。
