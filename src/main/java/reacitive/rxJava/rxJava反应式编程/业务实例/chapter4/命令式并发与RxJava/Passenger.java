@@ -11,11 +11,11 @@ public class Passenger {
     // 阻塞
     public Passenger findPassenger(long passengerId) {
 
-        System.out.println("findPassenger 被调用");
+        System.out.println("findPassenger 被调用, threadName = " + Thread.currentThread().getName());
         return new Passenger();
     }
 
-    public Observable<Passenger> rxFindFlight(long passengerId) {
+    public Observable<Passenger> rxFindPassenger(long passengerId) {
         // 包装为反应式
 
         return Observable.defer(() -> Observable.just(findPassenger(passengerId)));

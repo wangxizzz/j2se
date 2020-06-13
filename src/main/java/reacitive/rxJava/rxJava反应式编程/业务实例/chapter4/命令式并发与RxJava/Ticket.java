@@ -11,13 +11,13 @@ public class Ticket {
     // 阻塞
     public Ticket bookTicket(Flight flight, Passenger passenger) {
 
-        System.out.println("bookTicket 被调用");
+        System.out.println("bookTicket 被调用 threadName = " + Thread.currentThread().getName());
         return new Ticket();
     }
 
     // 响应式
     public Observable<Ticket> rxBookTicket(Flight flight, Passenger passenger) {
 
-        return Observable.just(new Ticket());
+        return Observable.just(bookTicket(flight, passenger));
     }
 }

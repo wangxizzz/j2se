@@ -11,7 +11,7 @@ public class Flight {
     // 阻塞代码
     public Flight findFlight(String flightNo) {
 
-        System.out.println("findFlight 被调用");
+        System.out.println("findFlight 被调用 threadName = " + Thread.currentThread().getName());
         return doGetFlight();
     }
 
