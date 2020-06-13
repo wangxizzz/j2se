@@ -1,11 +1,7 @@
-package reacitive.rxJava.业务实例.命令式并发与RxJava;
+package reacitive.rxJava.rxJava反应式编程.业务实例.chapter4.命令式并发与RxJava;
 
 import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 import org.apache.commons.lang3.tuple.Pair;
-import reactor.core.scheduler.Scheduler;
-
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author wangxi created on 2020/6/12 23:09

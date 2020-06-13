@@ -1,4 +1,4 @@
-package reacitive.rxJava.业务实例.命令式并发与RxJava;
+package reacitive.rxJava.rxJava反应式编程.业务实例.chapter4.命令式并发与RxJava;
 
 import io.reactivex.Observable;
 
