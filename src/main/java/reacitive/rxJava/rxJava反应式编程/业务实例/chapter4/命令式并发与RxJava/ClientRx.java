@@ -25,11 +25,12 @@ public class ClientRx {
         long passengerId = 123L;
         Observable<Flight> flightObservable =
                 flight.rxFindFlight(flightNo)
-                .subscribeOn(Schedulers.io())   // process切换线程池，采用的subscribeOn
+                .observeOn(Schedulers.computation())   // process切换线程池，采用的subscribeOn
                 .timeout(3, TimeUnit.SECONDS);
         Observable<Passenger> passengerObservable =
                 passenger.rxFindPassenger(passengerId)
-                .subscribeOn(Schedulers.computation());
+                        // subscribeOn距离Observable最近的线程池生效
+                .subscribeOn(Schedulers.io());
 
         // bookTicket非Rx
         Observable<Ticket> ticketObservable = flightObservable
@@ -58,7 +59,7 @@ public class ClientRx {
     public static void main(String[] args) throws Exception {
         ClientRx clientRx = new ClientRx();
         long start = System.currentTimeMillis();
-        clientRx.rxInvoke02();
+        clientRx.rxInvoke01();
 
         System.out.println("执行时间: " + (System.currentTimeMillis() - start));
     }

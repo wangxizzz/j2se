@@ -23,6 +23,8 @@ public class Chapter03 {
      */
     @Test
     public void test01() throws InterruptedException {
+        // RxJava会为整个管道只创建一个Worker实例
+        // 主要是为了确保事件能够按顺序进行处理。Observable回调是单线程顺序执行。
         Observable.just(8,9,10)
                 .doOnNext(i -> log("A : " + i))
                 .filter(i -> i % 3 > 0)
