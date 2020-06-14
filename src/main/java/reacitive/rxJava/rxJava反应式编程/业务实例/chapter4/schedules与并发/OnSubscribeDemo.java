@@ -229,7 +229,7 @@ public class OnSubscribeDemo {
 
         totalPrice.subscribe(x -> log(x));
 
-        // 离管道中 最开始的 Observable最近的 线程池被使用。
+        // 离管道中(create()中的lambda表达式) 最开始的 Observable最近的 线程池被使用。
         Thread.currentThread().join();
     }
 }
