@@ -15,7 +15,7 @@ import java.util.concurrent.ThreadFactory;
  * @author wangxi created on 2020/6/13 21:14
  * @version v1.0
  */
-public class OnSubscribeDemo {
+public class SubscribeOnDemo {
 
     private void log(Object msg) {
         System.out.println(Thread.currentThread().getName() + ":" + msg);
