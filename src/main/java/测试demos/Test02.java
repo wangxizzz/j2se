@@ -5,6 +5,7 @@ import io.netty.handler.codec.http.HttpScheme;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -135,4 +136,11 @@ public class Test02 {
 
         System.out.println(HttpScheme.HTTPS.name().toString());
     }
+
+    @Test
+	public void test10() {
+		String s = "20200508";
+		Timestamp timestamp = DateUtil.getTimeStampByFormat(s, "yyyyMMdd");
+		System.out.println(timestamp);
+	}
 }

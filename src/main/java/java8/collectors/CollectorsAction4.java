@@ -148,7 +148,8 @@ public class CollectorsAction4 {
     /**
      * Type:Total
      */
-    private static void testToMapWithBinaryOperator() {
+    @Test
+    public void testToMapWithBinaryOperator() {
         System.out.println("testToMapWithBinaryOperator");
         Optional.of(menu.stream()
                 .collect(Collectors.toMap(Dish::getType, v -> 1L, (a, b) -> a + b)))

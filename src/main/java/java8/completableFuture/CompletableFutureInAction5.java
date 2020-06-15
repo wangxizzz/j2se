@@ -1,8 +1,12 @@
 package java8.completableFuture;
 
+import org.junit.Test;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toList;
@@ -74,4 +78,9 @@ public class CompletableFutureInAction5 {
         // 让主线程等待上面线程运行完毕
         Thread.currentThread().join();
     }
+
+    @Test
+	public void test01() {
+
+	}
 }

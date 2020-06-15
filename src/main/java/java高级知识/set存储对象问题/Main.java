@@ -22,6 +22,7 @@ public class Main {
 
         DirectFlightParam param4 = new DirectFlightParam("上海", "厦门");
         DirectFlightParam param5 = new DirectFlightParam("杭州", "厦门");
+        DirectFlightParam param6 = new DirectFlightParam("杭州2", "厦门1");
 
         infoFromUrl.add(param1);
         infoFromUrl.add(param2);
@@ -29,9 +30,13 @@ public class Main {
 
         infoFromDb.add(param4);
         infoFromDb.add(param5);
-        System.out.println(infoFromUrl);
-
+        infoFromDb.add(param6);
+//        System.out.println(infoFromUrl);
+		System.out.println(Sets.intersection(infoFromUrl, infoFromDb));
         System.out.println(Sets.difference(infoFromUrl, infoFromDb));
+
+        // 取非交集
+		System.out.println(Sets.symmetricDifference(infoFromDb, infoFromUrl));
     }
 
     @Test

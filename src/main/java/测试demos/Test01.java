@@ -118,7 +118,7 @@ public class Test01 {
     public void test08() {
         //String config1 = "-1:23434880,214324956:143440,1774384:1440,204:48430,24323243440";  // toMap的value为空，会报空指针
 
-        String config = "-1:23,-1:23,214:143,177:1440,204:48430,204:4,24323:243440,24323:243441";
+        String config = "-1:23,-1:233,214:143,177:1440,204:48430,204:4,24323:243440,24323:243441";
         /**
          * * @param mergeFunction a merge function, used to resolve collisions between
          *      *                      values associated with the same key, as supplied
@@ -126,7 +126,7 @@ public class Test01 {
          */
         Map<Integer, Integer> map = Arrays.stream(StringUtils.split(config, ","))
                 .map(v -> StringUtils.split(v, ":"))
-                .collect(Collectors.toMap(x -> Integer.valueOf(x[0]), y -> Integer.valueOf(y[1]), (o1, o2) -> o1, LinkedHashMap::new));
+                .collect(Collectors.toMap(x -> Integer.valueOf(x[0]), y -> Integer.valueOf(y[1]), (o1, o2) -> o2, LinkedHashMap::new));
         System.out.println(map);
 
         System.out.println("======================");

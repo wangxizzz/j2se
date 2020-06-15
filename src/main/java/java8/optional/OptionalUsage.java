@@ -1,5 +1,7 @@
 package java8.optional;
 
+import org.junit.Test;
+
 import java.util.Optional;
 
 /**
@@ -61,4 +63,9 @@ public class OptionalUsage {
     private static String getInsuranceNameByOptional(Insurance insurance) {
         return Optional.ofNullable(insurance).map(Insurance::getName).orElse("unknown");
     }
+
+    @Test
+	public void test01() {
+		System.out.println(getInsuranceName(null));
+	}
 }
