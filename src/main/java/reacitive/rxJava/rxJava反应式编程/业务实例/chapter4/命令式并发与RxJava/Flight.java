@@ -1,6 +1,10 @@
 package reacitive.rxJava.rxJava反应式编程.业务实例.chapter4.命令式并发与RxJava;
 
 import io.reactivex.Observable;
+import reacitive.rxJava.rxJava反应式编程.业务实例.chapter5.completableFuture与stream.GeoLocation;
+import reacitive.rxJava.rxJava反应式编程.业务实例.chapter5.completableFuture与stream.User;
+
+import java.util.concurrent.CompletableFuture;
 
 /**
  * @author wangxi created on 2020/6/12 22:57

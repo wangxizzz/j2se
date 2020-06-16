@@ -2,6 +2,8 @@ package reacitive.rxJava.rxJava反应式编程.业务实例.chapter4.命令式�
 
 import io.reactivex.Observable;
 
+import java.util.concurrent.CompletableFuture;
+
 /**
  * @author wangxi created on 2020/6/12 22:58
  * @version v1.0
@@ -19,5 +21,9 @@ public class Ticket {
     public Observable<Ticket> rxBookTicket(Flight flight, Passenger passenger) {
 
         return Observable.just(bookTicket(flight, passenger));
+    }
+
+    public CompletableFuture<Ticket> bookTicketAsync(Flight flight) {
+        return CompletableFuture.supplyAsync(() -> bookTicket(flight, null));
     }
 }

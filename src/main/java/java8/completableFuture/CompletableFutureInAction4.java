@@ -8,6 +8,7 @@ public class CompletableFutureInAction4 {
     public static void main(String[] args) throws InterruptedException {
 
         CompletableFuture.supplyAsync(() -> 1)
+                // thenApply()会对Future返回的值执行动态转换，这类似于Observable.map()
                 .thenApply(i -> Integer.sum(i, 10))
                 .whenComplete((v, t) -> System.out.println(v));  // v代表value，t表示异常
 
