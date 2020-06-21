@@ -1,5 +1,6 @@
 package reacitive.rxJava.rxJava反应式编程.业务实例.chapter5.completableFuture与stream;
 
+import io.reactivex.Observable;
 import reacitive.rxJava.rxJava反应式编程.业务实例.chapter4.命令式并发与RxJava.Flight;
 
 import java.util.concurrent.CompletableFuture;
@@ -15,5 +16,9 @@ public class TravelAgency {
 
     public Flight search(User user, GeoLocation location) {
         return new Flight();
+    }
+
+    public Observable<Flight> rxSearchFlight(User user, GeoLocation location) {
+        return RxUtil.observe(searchFlightAysnc(user, location));
     }
 }
