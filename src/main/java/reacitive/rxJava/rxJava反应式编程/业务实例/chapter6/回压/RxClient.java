@@ -1,6 +1,7 @@
 package reacitive.rxJava.rxJava反应式编程.业务实例.chapter6.回压;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Scheduler;
 import io.reactivex.schedulers.Schedulers;
@@ -52,7 +53,7 @@ public class RxClient {
      *
      * Observable在一个线程(main)中生产事件，而Subscriber(schedulerA)在另一个线程中消费事件
      *
-     * 由range产生的Observable 理论上支持背压，但是下面的例子确没有体现。
+     *  Observable 不支持回压
      */
     @Test
     public void fun02() throws InterruptedException {
@@ -69,29 +70,19 @@ public class RxClient {
         Thread.currentThread().join();
     }
 
-    private Observable<Integer> myRange(int from, int count) {
-        return Observable.create(subscriber -> {
-            int i = from;
-            while (i < from + count) {
-                if (!subscriber.isDisposed()) {
-                    subscriber.onNext(i++);
-                } else {
-                    return;
-                }
-            }
-            subscriber.onComplete();
-        });
-    }
-
+    /**
+     * Flowable是支持回压的
+     */
     @Test
     public void fun03() throws InterruptedException {
-        myRange(1, 100000)
+        Flowable.range(1, 100000)
                 .map(Dish::new)
                 .observeOn(Schedulers.io())
                 .subscribe(x -> {
                     log("washing : " + x);
                     Thread.sleep(50);
                 }, Throwable::printStackTrace);
+
         // main线程发射完元素瞬息间就结束了
         Thread.currentThread().join();
     }
