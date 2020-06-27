@@ -95,6 +95,7 @@ public class BasicDemo01 {
      */
     @Test
     public void test07() {
+        Mono<Integer> integerMono = Mono.just(1);
         Mono.fromSupplier(() -> "Hello").subscribe(System.out::println);
         Mono.justOrEmpty(Optional.of("Hello")).subscribe(System.out::println);
         Mono.create(sink -> sink.success("Hello")).subscribe(System.out::println);
@@ -172,26 +173,26 @@ public class BasicDemo01 {
     }
 
     /**
-     * 处理正常与异常消息
+     * 处理正常与异常消息、错误处理
      */
     @Test
     public void test13() {
         Flux.just(1, 2)
-                .concatWith(Mono.error(new IllegalStateException()))
+                .concatWith(Mono.error(new IllegalStateException()))  // concatWith结合另一个发射源
                 .subscribe(System.out::println, System.err::println);
 
         System.out.println("===========================");
         // 出错时返回默认值
         Flux.just(1, 2)
                 .concatWith(Mono.error(new IllegalStateException()))
-                .onErrorReturn(0)
+                .onErrorReturn(0)    // onErrorReturn出错时返回默认值
                 .subscribe(System.out::println);
         System.out.println("===========================");
-        // 出错时切换另一个流（新版本不支持）
-//        Flux.just(1, 2)
-//                .concatWith(Mono.error(new IllegalStateException()))
-//                .sw(Mono.just(0))
-//                .subscribe(System.out::println);
+        // 出错时切换另一个流
+        Flux.just(1, 2)
+                .concatWith(Mono.error(new IllegalStateException()))
+                .onErrorResume(e -> Mono.just(0))    // onErrorResume出错时提供一个新的数据源
+                .subscribe(System.out::println);
 
         System.out.println("===========================");
         // 出错时 根据异常类型选择要使用的产生元素的流
@@ -208,14 +209,32 @@ public class BasicDemo01 {
                 .subscribe(System.out::println);
         System.out.println("===========================");
         // 当出现错误时，还可以通过 retry 操作符来进行重试。
-        // 重试的动作是通过重新订阅序列来实现的。在使用 retry 操作符时可以指定重试的次数
+        // 重试的动作是通过 重新订阅 序列来实现的。在使用 retry 操作符时可以指定重试的次数
         Flux.just(1, 2)
                 .concatWith(Mono.error(new IllegalStateException()))
                 .retry(1)
                 .subscribe(System.out::println);
+
+        // 有时候，我们收到异常后并不想立即处理，而是会包装成一个业务相关的异常交给后续的逻辑处理，可以使用onErrorMap方法
+        Flux.just("timeout1")
+                .flatMap(k -> callExternalService(k))   // 1
+                .onErrorMap(original -> new RuntimeException("SLA exceeded", original)); // 2
+        Flux.just("timeout1")
+                .flatMap(k -> callExternalService(k))
+                .onErrorResume(original -> Flux.error(
+                        new RuntimeException("SLA exceeded", original)
+                ));
+
+
+    }
+
+    private Flux<String> callExternalService(String k){
+        return Flux.empty();
     }
 
     /**
+     * 线程切换
+     *
      * 使用 create()方法创建一个新的 Flux 对象，其中包含唯一的元素是当前线程的名称。
      * 接着是两对 publishOn()和 map()方法，其作用是先切换执行时的调度器，再把当前的线程名称作为前缀添加
      */
@@ -244,7 +263,7 @@ public class BasicDemo01 {
     @Test
     public void test15() {
         StepVerifier.create(Flux.just("a", "b"))
-                .expectNext("a")
+                .expectNext("a1")
                 .expectNext("b")
                 .verifyComplete();
     }

@@ -1,15 +1,14 @@
 package reacitive.reactor.基础语法;
 
 import org.junit.Test;
+import org.reactivestreams.Subscription;
+import reactor.core.publisher.BaseSubscriber;
 import reactor.core.publisher.Flux;
-import reactor.core.publisher.Mono;
 
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
-import java.util.Optional;
-import java.util.Random;
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author wangxi created on 2020/6/4 22:57
@@ -54,5 +53,30 @@ public class BasicDemo02 {
     }
 
 
+    /**
+     * 背压模拟
+     */
+    @Test
+    public void backUpTest() {
+        Flux.range(1, 6)    // 1
+                .doOnRequest(n -> System.out.println("Request " + n + " values..."))    // 2
+                .subscribe(new BaseSubscriber<Integer>() {  // 3
+                    @Override
+                    protected void hookOnSubscribe(Subscription subscription) { // 4
+                        System.out.println("Subscribed and make a request...");
+                        request(1); // 5
+                    }
 
+                    @Override
+                    protected void hookOnNext(Integer value) {  // 6
+                        try {
+                            TimeUnit.SECONDS.sleep(1);  // 7
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println("Get value [" + value + "]");    // 8
+                        request(1); // 9
+                    }
+                });
+    }
 }
