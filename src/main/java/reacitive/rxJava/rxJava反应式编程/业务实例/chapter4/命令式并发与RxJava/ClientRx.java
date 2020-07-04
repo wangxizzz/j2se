@@ -36,7 +36,7 @@ public class ClientRx {
         Observable<Ticket> ticketObservable = flightObservable
                 .zipWith(passengerObservable, (f, p) -> ticket.bookTicket(f, p));
 
-        ticketObservable.subscribe(this::sendMail);
+        //ticketObservable.subscribe(this::sendMail);
         // 订阅
         Thread.sleep(2000);
     }

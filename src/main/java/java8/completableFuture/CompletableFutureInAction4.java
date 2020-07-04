@@ -1,5 +1,7 @@
 package java8.completableFuture;
 
+import org.junit.Test;
+
 import java.util.concurrent.CompletableFuture;
 
 
@@ -19,7 +21,7 @@ public class CompletableFutureInAction4 {
                 .thenRun(System.out::println);  // 可以进一步配一个Runnable
 
         CompletableFuture.supplyAsync(() -> 1)
-                .thenApply(i -> Integer.sum(i, 10))
+                .thenApplyAsync(i -> Integer.sum(i, 10))
                 .thenAccept(System.out::println); // 输出结果
 
         CompletableFuture.supplyAsync(() -> 1)
@@ -41,5 +43,26 @@ public class CompletableFutureInAction4 {
                 });
 
         Thread.sleep(1000L);
+    }
+
+
+
+    @Test
+    public void test01() {
+        CompletableFuture.supplyAsync(() -> {
+            try {
+                return 1/0;
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        })
+                // thenApply()会对Future返回的值执行动态转换，这类似于Observable.map()
+                .thenApply(i -> Integer.sum(i, 10))
+                .whenComplete((v, t) -> {
+                    if (t != null) {
+                        t.printStackTrace();
+                    }
+                    System.out.println(v);
+                });  // v代表value，t表示异常
     }
 }

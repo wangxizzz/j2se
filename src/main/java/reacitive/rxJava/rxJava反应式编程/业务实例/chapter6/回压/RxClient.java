@@ -46,6 +46,10 @@ public class RxClient {
                     System.out.println("washing : " + x);
                     Thread.sleep(50);
                 });
+
+        Observable.range(1, 10)
+                .map(x -> x + 1)
+                .subscribe(System.out::println);
     }
 
     /**

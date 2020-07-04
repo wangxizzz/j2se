@@ -25,6 +25,20 @@ public class ClientFuture {
         Thread.sleep(2000);
     }
 
+    public void futureInvoke01() throws InterruptedException {
+        String flightNo = "MH123";
+        long passengerId = 123L;
+
+        CompletableFuture<Ticket> ticketFuture = CompletableFuture
+                .supplyAsync(() -> flight.findFlight(flightNo), executorService)
+                .thenCombine(CompletableFuture.supplyAsync(() -> passenger.findPassenger(passengerId), executorService),
+                        (flight, passenger) -> CompletableFuture
+                                .supplyAsync(() -> ticket.bookTicket(flight, passenger)))
+                .thenCompose(x -> x);
+
+        Thread.sleep(2000);
+    }
+
     public static void main(String[] args) throws InterruptedException {
         ClientFuture clientFuture = new ClientFuture();
         long start = System.currentTimeMillis();
