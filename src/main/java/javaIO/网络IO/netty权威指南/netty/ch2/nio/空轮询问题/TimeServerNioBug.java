@@ -139,6 +139,7 @@ public class TimeServerNioBug {
                     doWrite(clientChannel,"the time server receive order:"+body);
                     // 返回-1，链路已关闭，关闭Channel，释放资源
                 }
+                // 空轮询bug
 //                System.out.println("进入key.isReadable()");
 //                else if(readBytes <0){
 //                    System.out.println("链路关闭");
