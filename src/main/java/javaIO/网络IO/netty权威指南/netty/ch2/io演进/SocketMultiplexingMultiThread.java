@@ -98,9 +98,15 @@ public class SocketMultiplexingMultiThread {
 
         @Override
         public void run() {
+            /**
+             * boss selector上只注册了 ServerSocketChannel，而且只监听OP_ACCEPT事件
+             *
+             * worker selector上注册了客户端channel，只监听了 OP_READ事件
+             */
             try {
                while (true) {
-                   // 只有boos thread绑定了 ServerSocketChannel,因此可以select出 accept事件。
+                   // 只有boos thread绑定了 ServerSocketChannel,client端channel并没注册到boss selector上
+                   // ，并且注册了OP_ACCEPT事件,因此可以select出 accept事件。
                    // worker thread只能select出读写事件，因为并没有注册OP_ACCEPT事件
                    while (selector.select(10) > 0) {    // 注意：selector.select()是一个阻塞操作，设置超时时间，在过了时间不会阻塞
                        Set<SelectionKey> selectionKeys = selector.selectedKeys();
@@ -111,9 +117,11 @@ public class SocketMultiplexingMultiThread {
 
                            if (selectionKey.isAcceptable()) {
                                // boss不想把client注册自己的selector上
+                               System.out.println("thread name = " + Thread.currentThread().getName());
                                handleAcceptable(selectionKey);
 
                            } else if (selectionKey.isReadable()) {
+                               System.out.println("thread name = " + Thread.currentThread().getName());
                                handleReadable(selectionKey);
                            }
                        }
