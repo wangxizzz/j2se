@@ -10,6 +10,9 @@ import java.util.List;
 /**
  * @author wangxi created on 2020/7/19 20:00
  * @version v1.0
+ *
+ *  此时只是NIO的代码，并没有引入多路复用器。
+ *  linux下的多路复用器的系统调用为：select, poll, epoll
  */
 public class SocketNIO {
     public static void main(String[] args) throws Exception {
