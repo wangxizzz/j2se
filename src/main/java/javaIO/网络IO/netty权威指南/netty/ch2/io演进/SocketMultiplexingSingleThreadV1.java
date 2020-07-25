@@ -17,6 +17,7 @@ import java.util.Set;
  *  Socket多路复用器 单线程版,只用了一个 selector
  *
  *
+ *  此时利用strace 跟踪系统调用，会发现使用时 epoll
  */
 public class SocketMultiplexingSingleThreadV1 {
 

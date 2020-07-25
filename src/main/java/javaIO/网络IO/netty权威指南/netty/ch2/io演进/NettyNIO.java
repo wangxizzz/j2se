@@ -25,7 +25,9 @@ public class NettyNIO {
         ServerBootstrap bootstrap = new ServerBootstrap();
 
         try {
-            bootstrap.group(boss, worker)    // 如果两个都是boss，那么就相当于SocketMultiplexingSingleThreadV1这个版本，单个thread及处理连接，也处理IO事件，此时属于组合模型
+            // 如果两个都是boss，那么就相当于SocketMultiplexingSingleThreadV1这个版本，
+            // 单个thread及处理连接(此处是一个线程池版的Selector)，也处理IO事件，此时属于组合模型
+            bootstrap.group(boss, worker)
                      .channel(NioServerSocketChannel.class)
                     .childHandler(new ChannelInitializer<NioSocketChannel>() {
                         @Override
