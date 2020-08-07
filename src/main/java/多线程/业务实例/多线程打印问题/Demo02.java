@@ -6,6 +6,8 @@ package 多线程.业务实例.多线程打印问题;
  * @version v1.0
  *
  * 启动两个线程, 一个输出 1,3,5,7…99, 另一个输出 2,4,6,8…100 最后 STDOUT 中按序输出 1,2,3,4,5…100
+ *
+ * 可以使用 condition 、lock来实现
  */
 public class Demo02 {
 
