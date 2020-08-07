@@ -1,4 +1,4 @@
-package 多线程.业务实例.abc打印;
+package 多线程.业务实例.多线程打印问题;
 
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
@@ -6,7 +6,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * <Description>
- *   参考网址：https://www.cnblogs.com/xiaoxi/p/8035725.html
  *   分析：
  *
  *     仔细想想本问题，既然同一时刻只能有一个线程打印字符，那我们为什么不使用一个同步锁ReentrantLock？

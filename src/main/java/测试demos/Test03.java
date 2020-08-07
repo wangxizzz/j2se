@@ -2,6 +2,8 @@ package 测试demos;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import com.google.common.collect.Lists;
 import org.junit.Test;
 
 import java.util.BitSet;
@@ -72,6 +74,9 @@ public class Test03 {
 
         System.out.println(list1);
 
-
+        List<String> a = Lists.newArrayList("1", "2");
+        List<String> b = Lists.newArrayList("A", "C");
+        List<List<String>> lists = Lists.cartesianProduct(Lists.newArrayList(a, b));
+        System.out.println(lists);
     }
 }
