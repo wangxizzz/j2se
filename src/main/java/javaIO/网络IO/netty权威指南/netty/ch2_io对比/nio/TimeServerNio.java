@@ -1,4 +1,4 @@
-package javaIO.网络IO.netty权威指南.netty.ch2.nio.空轮询问题;
+package javaIO.网络IO.netty权威指南.netty.ch2_io对比.nio;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -15,14 +15,14 @@ import java.util.Set;
 /**
  * Created by wangxi on 24/03/2018.
  */
-public class TimeServerNioBug {
+public class TimeServerNio {
 
     private volatile boolean stop;
     Selector selector = null;
 
     public static void main(String[] args){
 
-        new TimeServerNioBug().start();
+        new TimeServerNio().start();
     }
 
     /**
@@ -33,7 +33,7 @@ public class TimeServerNioBug {
     public void start(){
         ServerSocketChannel acceptorSvr = null;
         try {
-            int port = 8081;
+            int port = 8080;
             acceptorSvr = ServerSocketChannel.open();
             // 把serverChannel设置为非阻塞的
             acceptorSvr.configureBlocking(false);
@@ -65,7 +65,6 @@ public class TimeServerNioBug {
                     try{
                         handleInput(key);
                     }catch (Exception e){
-                        e.printStackTrace();
                         if(key != null){
                             key.cancel();
                             if(key.channel() !=null){
@@ -139,13 +138,11 @@ public class TimeServerNioBug {
                     doWrite(clientChannel,"the time server receive order:"+body);
                     // 返回-1，链路已关闭，关闭Channel，释放资源
                 }
-                // 空轮询bug
-//                System.out.println("进入key.isReadable()");
-//                else if(readBytes <0){
-//                    System.out.println("链路关闭");
-//                    key.cancel();
-//                    clientChannel.close();
-//                }
+                else if(readBytes <0){
+                    System.out.println("链路关闭");
+                    key.cancel();
+                    clientChannel.close();
+                }
             }
         }
     }

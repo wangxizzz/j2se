@@ -1,4 +1,4 @@
-package javaIO.网络IO.netty权威指南.netty.ch2.bio2;
+package javaIO.网络IO.netty权威指南.netty.ch2_io对比.bio;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,10 +13,11 @@ import java.util.Date;
 public class TimeserverHandler implements Runnable {
 
     private Socket socket;
-    public TimeserverHandler(Socket socket) {
+    private String threadName;
+    public TimeserverHandler(Socket socket, String threadName) {
         this.socket = socket;
+        this.threadName = threadName;
     }
-    @Override
     public void run(){
         BufferedReader in = null;
         PrintWriter out = null;
@@ -26,14 +27,13 @@ public class TimeserverHandler implements Runnable {
             String currentTime = null;
             String body = null;
             while(true){
-                // readLine方法底层仍然调用read().
-                body = in.readLine();
+                body = in.readLine();   // 阻塞点2
                 if(body == null){
                     break;
                 }
-                System.out.print("The time server receive order :"+body);
-                currentTime = "Query time order".equalsIgnoreCase(body)?new Date(System.currentTimeMillis()).toString():"bad order";
-                out.println(currentTime);
+                System.out.println(threadName + " : " + "The time server receive order :" + body);
+                currentTime = "Query time order".equalsIgnoreCase(body) ? new Date(System.currentTimeMillis()).toString():"bad order";
+                out.println(threadName + " : " + currentTime);
             }
         }catch (Exception e){
             e.printStackTrace();

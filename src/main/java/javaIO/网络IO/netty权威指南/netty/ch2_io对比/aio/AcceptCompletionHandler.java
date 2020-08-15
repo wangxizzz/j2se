@@ -1,9 +1,8 @@
-package javaIO.网络IO.netty权威指南.netty.ch2.aio;
+package javaIO.网络IO.netty权威指南.netty.ch2_io对比.aio;
 
 import java.nio.ByteBuffer;
 import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
-import java.util.List;
 
 /**
  * Created by wangxi on 25/03/2018.

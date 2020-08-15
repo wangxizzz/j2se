@@ -1,4 +1,4 @@
-package javaIO.网络IO.netty权威指南.netty.ch2.bio2;
+package javaIO.网络IO.netty权威指南.netty.ch2_io对比.bio2;
 
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.ExecutorService;

@@ -1,4 +1,4 @@
-package javaIO.网络IO.netty权威指南.netty.ch2.nio;
+package javaIO.网络IO.netty权威指南.netty.ch2_io对比.nio;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;

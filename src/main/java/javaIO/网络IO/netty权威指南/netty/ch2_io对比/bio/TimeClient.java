@@ -1,4 +1,4 @@
-package javaIO.网络IO.netty权威指南.netty.ch2.bio2;
+package javaIO.网络IO.netty权威指南.netty.ch2_io对比.bio;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -7,7 +7,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
- * Created by wangxi on 21/03/2018.
+ * BIO
  */
 public class TimeClient {
     public static void main(String[] args){
@@ -20,10 +20,14 @@ public class TimeClient {
             socket = new Socket("127.0.0.1",8080);
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(),true);
-            out.println("query time order");
-            System.out.println(" send order to server succeed");
-            String resp = in.readLine();
-            System.out.println(resp);
+            // 向server端发送信息
+            while (true) {
+                out.println("query time order");
+                System.out.println(" send order to server succeed");
+                String resp = in.readLine();
+                System.out.println(resp);
+                Thread.sleep(2000);
+            }
         }catch (Exception e){
             e.printStackTrace();
         }finally {

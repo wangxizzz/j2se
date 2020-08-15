@@ -1,4 +1,4 @@
-package javaIO.网络IO.netty权威指南.netty.ch2.nio.空轮询问题;
+package javaIO.网络IO.netty权威指南.netty.ch2_io对比.nio.空轮询问题;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
