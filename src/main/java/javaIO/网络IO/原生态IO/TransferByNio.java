@@ -7,7 +7,9 @@ import java.nio.channels.FileChannel;
 /**
  * <Description>
  * 参考：https://segmentfault.com/a/1190000005675241
+ *
  * 利用了sendFile系统调用
+ *
  * @author wangxi
  */
 public class TransferByNio {
