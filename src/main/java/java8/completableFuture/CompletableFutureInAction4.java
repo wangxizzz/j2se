@@ -3,6 +3,8 @@ package java8.completableFuture;
 import org.junit.Test;
 
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.ExecutionException;
+import java.util.function.Function;
 
 
 public class CompletableFutureInAction4 {
@@ -64,5 +66,31 @@ public class CompletableFutureInAction4 {
                     }
                     System.out.println(v);
                 });  // v代表value，t表示异常
+    }
+
+    @Test
+    public void test02() throws ExecutionException, InterruptedException {
+        CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return 1;
+        }).thenApply(Function.identity());   // thenApply是回调函数
+
+        CompletableFuture<Integer> future2 = CompletableFuture.supplyAsync(() -> {
+            try {
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            return 1;
+        }).thenApply(Function.identity());
+
+        System.out.println("逻辑进行中....");
+
+        System.out.println(future1.get());
+        System.out.println(future2.get());
     }
 }
