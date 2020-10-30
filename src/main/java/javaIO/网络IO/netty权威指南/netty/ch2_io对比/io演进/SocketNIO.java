@@ -13,6 +13,8 @@ import java.util.List;
  *
  *  此时只是NIO的代码，并没有引入多路复用器, 跟踪OS系统调用，发现使用的是 poll。
  *  linux下的多路复用器的系统调用为：select, poll, epoll
+ *
+ *  strace 查看系统调用: https://blog.csdn.net/jk110333/article/details/41247789
  */
 public class SocketNIO {
     public static void main(String[] args) throws Exception {
