@@ -18,9 +18,9 @@ public class Demo01 {
         //线程池
         ExecutorService exec = Executors.newCachedThreadPool();
         //速率是每秒只有3个许可
-        final RateLimiter rateLimiter = RateLimiter.create(3.0);
+        final RateLimiter rateLimiter = RateLimiter.create(4.0);
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 20; i++) {
             final int no = i;
             Runnable runnable = new Runnable() {
                 @Override
@@ -28,6 +28,7 @@ public class Demo01 {
                     try {
                         //获取许可
                         rateLimiter.acquire();
+                        // 注意：tryAcquire API不是简单的判断是否能限流，不要使用。
                         System.out.println("Accessing: " + no + ",time:"
                                 + new SimpleDateFormat("yy-MM-dd HH:mm:ss").format(new Date()));
 

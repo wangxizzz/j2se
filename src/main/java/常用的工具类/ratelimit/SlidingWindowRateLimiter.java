@@ -56,8 +56,6 @@ public class SlidingWindowRateLimiter implements Runnable{
         // 环形队列的设计
         index = (index + 1) % block;
         // 下一行代码是为了模拟窗口整体滑动时所接受的流量。
-        // 注意：整个窗口的滑动是总体时间1s，并不是单个格子的时间，意思是说过了第1s，窗口才会整体往右滑动一格。
-        // 如果整体窗口以每一格的时间向前滑动，那么在1s末2s初时，整个窗口已经位于2.1s~3.0s之间了，仍然无法处理临界问题
         long val = countPerBlock[index].getAndSet(0);
         // 使用是个计数器来模拟每个窗口的计数器之和
         count.addAndGet(-val);
