@@ -9,6 +9,8 @@ import java.util.concurrent.TimeUnit;
  * @version v1.0
  *
  * 平滑预热限流
+ *
+ * https://www.fangzhipeng.com/springcloud/2019/08/20/ratelimit-guava-sentinel.html
  */
 public class SmoothwarmingUpTest {
 
@@ -27,7 +29,7 @@ public class SmoothwarmingUpTest {
 
     public static void testSmoothwarmingUp() {
         /**
-         * 第二个参数为5，表示在5s内以不同的时间放过5个请求。之后会按照固定速率放过请求
+         * 第二个参数为5，表示在5s内以不同的时间(斜率不断减小)放过5个请求。之后会按照固定速率放过请求
          */
         RateLimiter r = RateLimiter.create(2, 5, TimeUnit.SECONDS);
 
