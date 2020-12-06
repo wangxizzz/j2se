@@ -97,6 +97,7 @@ public class TimeClientNio {
                     byteBuffer.get(bytes);
 
                     System.out.println("client received:"+ new String(bytes,"UTF-8"));
+                    doWrite(socketChannel);
                    // stop = true;
                 }else if(byteLength<0){
                     key.cancel();

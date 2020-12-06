@@ -26,7 +26,7 @@ public class TimeClient {
                 System.out.println(" send order to server succeed");
                 String resp = in.readLine();
                 System.out.println(resp);
-                Thread.sleep(2000);
+//                Thread.sleep(2000);
             }
         }catch (Exception e){
             e.printStackTrace();

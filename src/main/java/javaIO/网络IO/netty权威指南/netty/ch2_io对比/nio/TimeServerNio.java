@@ -9,6 +9,7 @@ import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -125,17 +126,24 @@ public class TimeServerNio {
 
                     // 上面同步等待，下面使用异步处理业务逻辑(操作DB,RPC调用)
                     System.out.println("等着....");
-                    new Thread(() -> {
-                        try {
-                            // 表示业务调用需耗时20s,没返回值。
-                            // 如果需要返回值，那么就可以利用回调CompletableFuture获取返回值，selector线程依旧不阻塞.
-                            Thread.sleep(20000);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }).start();
+//                    new Thread(() -> {
+//                        try {
+//                            // 表示业务调用需耗时20s,没返回值。
+//                            // 如果需要返回值，那么就可以利用回调CompletableFuture获取返回值，selector线程依旧不阻塞.
+//                            Thread.sleep(20000);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }).start();
+                    try {
+                        // 表示业务调用需耗时20s,没返回值。
+                        // 如果需要返回值，那么就可以利用回调CompletableFuture获取返回值，selector线程依旧不阻塞.
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     System.out.println("异步快速返回....");
-                    doWrite(clientChannel,"the time server receive order:"+body);
+                    doWrite(clientChannel,"服务端返回：the time server receive order："+ new Date() + "，客户端请求：" + body);
                     // 返回-1，链路已关闭，关闭Channel，释放资源
                 }
                 else if(readBytes <0){
@@ -149,7 +157,7 @@ public class TimeServerNio {
 
     private void doWrite(SocketChannel sc, String response) throws IOException{
         if(StringUtils.isNotBlank(response)){
-            ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+            ByteBuffer byteBuffer = ByteBuffer.allocate(4096);
             byteBuffer.put(response.getBytes());
             byteBuffer.flip();
             sc.write(byteBuffer);
