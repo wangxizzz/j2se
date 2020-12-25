@@ -75,7 +75,7 @@ public class CompletableFutureInAction4 {
     public void test02() throws Exception {
         CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(3000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -97,14 +97,14 @@ public class CompletableFutureInAction4 {
 //        System.out.println(future1.get(6, TimeUnit.SECONDS));
 //        System.out.println(future2.get(6, TimeUnit.SECONDS));
 
-        // 这种只会阻塞5s，然后超时
+        // 这种只会阻塞5s，然后超时,多任务并行执行
        // CompletableFuture.allOf(future1, future2).get(5, TimeUnit.SECONDS);
 
         // 这种只会阻塞5s，然后超时，future1与future2异步执行
-        //future1.thenCompose(i -> future2).get(5, TimeUnit.SECONDS);
-        future1.thenCombine(future2, (i, j) -> {
-            return 2;
-        }).get(5, TimeUnit.SECONDS);
+        future1.thenCompose(i -> future2).get(4, TimeUnit.SECONDS);
+//        future1.thenCombine(future2, (i, j) -> {
+//            return 2;
+//        }).get(5, TimeUnit.SECONDS);
 
         System.out.println((System.currentTimeMillis() - begin));
     }
