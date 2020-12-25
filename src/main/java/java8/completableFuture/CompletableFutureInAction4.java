@@ -101,7 +101,10 @@ public class CompletableFutureInAction4 {
        // CompletableFuture.allOf(future1, future2).get(5, TimeUnit.SECONDS);
 
         // 这种只会阻塞5s，然后超时，future1与future2异步执行
-        future1.thenCompose(i -> future2).get(5, TimeUnit.SECONDS);
+        //future1.thenCompose(i -> future2).get(5, TimeUnit.SECONDS);
+        future1.thenCombine(future2, (i, j) -> {
+            return 2;
+        }).get(5, TimeUnit.SECONDS);
 
         System.out.println((System.currentTimeMillis() - begin));
     }
