@@ -2,8 +2,11 @@ package java8.completableFuture;
 
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 
@@ -69,7 +72,7 @@ public class CompletableFutureInAction4 {
     }
 
     @Test
-    public void test02() throws ExecutionException, InterruptedException {
+    public void test02() throws Exception {
         CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(() -> {
             try {
                 Thread.sleep(5000);
@@ -81,16 +84,45 @@ public class CompletableFutureInAction4 {
 
         CompletableFuture<Integer> future2 = CompletableFuture.supplyAsync(() -> {
             try {
-                Thread.sleep(5000);
+                Thread.sleep(10000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             return 1;
         }).thenApply(Function.identity());
-
+        long begin = System.currentTimeMillis();
         System.out.println("逻辑进行中....");
 
-        System.out.println(future1.get());
-        System.out.println(future2.get());
+        // 这种会导致主流程阻塞为10s，而不超时
+//        System.out.println(future1.get(6, TimeUnit.SECONDS));
+//        System.out.println(future2.get(6, TimeUnit.SECONDS));
+
+        // 这种只会阻塞5s，然后超时
+       // CompletableFuture.allOf(future1, future2).get(5, TimeUnit.SECONDS);
+
+        // 这种只会阻塞5s，然后超时，future1与future2异步执行
+        future1.thenCompose(i -> future2).get(5, TimeUnit.SECONDS);
+
+        System.out.println((System.currentTimeMillis() - begin));
+    }
+
+    @Test
+    public void test03() throws Exception{
+        List<Integer> list = new ArrayList<>();
+        CompletableFuture<Integer> future = CompletableFuture.supplyAsync(() -> {
+            int i = 1/0;
+            return 1;
+        }).whenComplete((val, e) -> {
+            list.add(val);
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        });
+
+//        Integer integer = future.get();
+//        System.out.println(integer);
+
+        System.out.println(list);
+
+        Thread.currentThread().join();
     }
 }
