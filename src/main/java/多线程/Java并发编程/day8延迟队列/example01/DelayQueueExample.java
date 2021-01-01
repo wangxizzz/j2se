@@ -12,11 +12,11 @@ import java.util.concurrent.DelayQueue;
 public class DelayQueueExample {
     public static void main(String[] args) {
 
-        BlockingQueue<DelayTask> queue = new DelayQueue<DelayTask>();
+        BlockingQueue<DelayTask> queue = new DelayQueue<>();
         long currentTime = System.currentTimeMillis();
         for (int i = 0; i < 10; i++) {
             try {
-                queue.put(new DelayTask("work " + i, 2000, currentTime, currentTime + i * 1000));
+                queue.put(new DelayTask("work " + i, 2000, currentTime, i * 100));
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
