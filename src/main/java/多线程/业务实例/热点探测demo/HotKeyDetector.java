@@ -18,7 +18,7 @@ public class HotKeyDetector {
 
     public Map<String, LongAdder> map = new ConcurrentHashMap<>();
 
-    public int hotKeyWater = 80;
+    public int hotKeyWater = 170;
 
     HashedWheelTimer hashedWheelTimer = new HashedWheelTimer(1, TimeUnit.SECONDS);
 
@@ -48,7 +48,7 @@ public class HotKeyDetector {
 
             // 时间轮任务重放
             reput();
-        }, 3, TimeUnit.SECONDS);
+        }, 30, TimeUnit.SECONDS);
     }
 
     public void reput() {
@@ -65,6 +65,6 @@ public class HotKeyDetector {
 
             // 时间轮任务重放
             reput();
-        }, 3, TimeUnit.SECONDS);
+        }, 30, TimeUnit.SECONDS);
     }
 }

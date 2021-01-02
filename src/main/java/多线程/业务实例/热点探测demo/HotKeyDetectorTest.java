@@ -36,7 +36,7 @@ public class HotKeyDetectorTest {
         while (true) {
             Thread.sleep(200);
             for (int i = 0; i < 20; i++) {
-                executor.execute(() -> instance.statistic("wangxi" + random.nextInt(5)));
+                executor.execute(() -> instance.statistic("wangxi" + random.nextInt(20)));
             }
         }
 
