@@ -74,37 +74,23 @@ public class CompletableFutureInAction4 {
     @Test
     public void test02() throws Exception {
         CompletableFuture<Integer> future1 = CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+            int a = 1/0;
             return 1;
-        }).thenApply(Function.identity());   // thenApply是回调函数
+        }).whenComplete((v, e) -> {
+            System.out.println("aaa");
+            e.printStackTrace();
+            throw new RuntimeException("ssss");
+        }) ;
 
         CompletableFuture<Integer> future2 = CompletableFuture.supplyAsync(() -> {
-            try {
-                Thread.sleep(10000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
             return 1;
         }).thenApply(Function.identity());
         long begin = System.currentTimeMillis();
         System.out.println("逻辑进行中....");
 
-        // 这种会导致主流程阻塞为10s，而不超时
-//        System.out.println(future1.get(6, TimeUnit.SECONDS));
-//        System.out.println(future2.get(6, TimeUnit.SECONDS));
 
-        // 这种只会阻塞5s，然后超时,多任务并行执行
-       // CompletableFuture.allOf(future1, future2).get(5, TimeUnit.SECONDS);
-
-        // 这种只会阻塞5s，然后超时，future1与future2异步执行
-        future1.thenCompose(i -> future2).get(4, TimeUnit.SECONDS);
-//        future1.thenCombine(future2, (i, j) -> {
-//            return 2;
-//        }).get(5, TimeUnit.SECONDS);
+        CompletableFuture.allOf(future1, future2).get();
 
         System.out.println((System.currentTimeMillis() - begin));
     }

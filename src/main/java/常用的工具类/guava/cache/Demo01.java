@@ -265,13 +265,48 @@ public class Demo01 {
         System.out.println(cache.asMap());
         cache.put(3, 3);
         try {
-            System.out.println(cache.getUnchecked(3));
+            //System.out.println(cache.getUnchecked(3));
             Thread.sleep(4000);
             System.out.println(cache.getUnchecked(3));
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * https://blog.csdn.net/ofeihongye/article/details/88666477
+     * 惰性删除，监听器惰性触发
+     * @throws InterruptedException
+     */
+    @Test
+    public void test101() throws InterruptedException {
+        Cache<Object, Object> cache = CacheBuilder.newBuilder()
+                .maximumSize(10000)
+                .expireAfterWrite(3, TimeUnit.SECONDS)
+                .removalListener(RemovalListeners.asynchronous(new RemovalListener<Object, Object>() {
+                    // 当缓存被移除时执行
+                    @Override
+                    public void onRemoval(RemovalNotification<Object, Object> notification) {
+                        try {
+//                            int i = 1/0;
+                            System.out.println("remove key[" + notification.getKey() +
+                                    "],value[" + notification.getValue() + "],remove reason[" +
+                                    notification.getCause() + "]");
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }, Executors.newSingleThreadExecutor())).build();
+
+
+        cache.put(1, 1);
+        cache.put(1, 2);
+        cache.put(3, 3);
+
+        Thread.sleep(5000);
+
+        cache.cleanUp();
     }
 
     /**
