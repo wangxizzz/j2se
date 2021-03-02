@@ -1,9 +1,11 @@
 package 常用的工具类.guava.cache;
 
+import com.alibaba.fastjson.JSONObject;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
+import com.google.common.cache.RemovalCause;
 import com.google.common.cache.RemovalListener;
 import com.google.common.cache.RemovalListeners;
 import com.google.common.cache.RemovalNotification;
@@ -289,10 +291,13 @@ public class Demo01 {
                     @Override
                     public void onRemoval(RemovalNotification<Object, Object> notification) {
                         try {
-//                            int i = 1/0;
-                            System.out.println("remove key[" + notification.getKey() +
-                                    "],value[" + notification.getValue() + "],remove reason[" +
-                                    notification.getCause() + "]");
+                            RemovalCause removalCause = notification.getCause();
+                            if (RemovalCause.EXPIRED == removalCause) {
+                                //int i = 1/0;
+                                System.out.println("remove key[" + notification.getKey() +
+                                        "],value[" + notification.getValue() + "],remove reason[" +
+                                        notification.getCause() + "]");
+                            }
                         } catch (Exception e) {
 
                         }
@@ -307,6 +312,42 @@ public class Demo01 {
         Thread.sleep(5000);
 
         cache.cleanUp();
+    }
+
+    @Test
+    public void test102() throws InterruptedException {
+        Cache<JSONObject, JSONObject> cache = CacheBuilder.newBuilder()
+                .maximumSize(10000)
+                .expireAfterWrite(3, TimeUnit.SECONDS)
+                .removalListener(RemovalListeners.asynchronous(new RemovalListener<Object, Object>() {
+                    // 当缓存被移除时执行
+
+                    @Override
+                    public void onRemoval(RemovalNotification<Object, Object> notification) {
+                        try {
+//                            int i = 1/0;
+                            JSONObject jsonObj = (JSONObject)notification.getKey();
+                            System.out.println(jsonObj.getString("a"));
+                            System.out.println("remove key[" + jsonObj +
+                                    "],value[" + notification.getValue() + "],remove reason[" +
+                                    notification.getCause() + "]");
+                        } catch (Exception e) {
+
+                        }
+                    }
+                }, Executors.newSingleThreadExecutor())).build();
+
+
+        JSONObject jsonObject1 = new JSONObject();
+        jsonObject1.put("a", 1);
+        // 利用 key的hash标识唯一，同意hash的key，value会被覆盖
+        cache.put(jsonObject1, jsonObject1);
+
+        JSONObject jsonObject2 = new JSONObject();
+        jsonObject2.put("a", 1);
+        cache.put(jsonObject2, jsonObject2);
+
+        System.out.println(cache.asMap());
     }
 
     /**
